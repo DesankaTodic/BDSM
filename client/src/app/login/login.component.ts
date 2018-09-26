@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -12,4 +13,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  login(dto, form: NgForm) {
+    console.log(dto);
+    alert('submit');
+//    this.authenticationService.login(dto);
+
+    form.reset();
+  }
 }
