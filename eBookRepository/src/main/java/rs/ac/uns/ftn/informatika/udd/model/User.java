@@ -49,7 +49,7 @@ public class User {
 	private String password;
 
 	@NotNull
-	private TypeEnum type;
+	private TypeEnum userType;
 
 	private Long categoryId;
 
@@ -69,7 +69,7 @@ public class User {
 		this.username = username;
 		this.email = email;
 		this.password = password;
-		this.type = type;
+		this.userType = type;
 
 	}
 
@@ -80,6 +80,6 @@ public class User {
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
-		this.type = type;
+		this.userType = type;
 	}
 }
