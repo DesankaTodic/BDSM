@@ -4,6 +4,6 @@ export class User {
   firstName: string;
   lastName: string;
   description: string;
-  type: string;
+  userType: string;
   email: string;
 }

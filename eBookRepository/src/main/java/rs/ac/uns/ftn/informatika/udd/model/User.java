@@ -27,19 +27,19 @@ public class User {
 	@Pattern(regexp = "[\\w]{1,10}", message = "Korisnicko ime ima najvise 10 karaktera!")
 	private String username;
 
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	@Size(min = 1, max = 10)
 	@NotEmpty
 	@Pattern(regexp = "[\\w]{1,20}", message = "Korisnicko ime ima najvise 10 karaktera!")
 	private String firstName;
 
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	@Size(min = 1, max = 10)
 	@NotEmpty
 	@Pattern(regexp = "[\\w]{1,30}", message = "Korisnicko ime ima najvise 10 karaktera!")
 	private String lastName;
 
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	@Email
 	@NotEmpty
 	private String email;

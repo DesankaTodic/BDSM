@@ -20,7 +20,7 @@ public class Category {
     @Column(name = "id")
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     @Size(max = 30)
     @NotEmpty
     private String name;

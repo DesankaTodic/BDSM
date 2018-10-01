@@ -21,21 +21,10 @@ export class RegistrationComponent implements OnInit {
     }
   
   register(value, form){
-    /*let x = this.userService.registrate(value).subscribe(
-      res => {
-        console.log(res);
-        alert("You registered successfully!")
-        this.router.navigateByUrl('/login');
-        form.reset();
-      },
-      err => {
-        console.log("Error occured");
-      }
-    );*/
     this.userService.registrate(value)
         .subscribe(
         (data: any) => {
-          if (data == null) {//obrnuta je logika ako vrati praznu listu, pukao je
+          if (data == null) {//obrnuta je logika ako vrati praznu listu, puklo je cuvanje na server
             alert("You registered successfully!")
             this.router.navigateByUrl('/login');
             form.reset();

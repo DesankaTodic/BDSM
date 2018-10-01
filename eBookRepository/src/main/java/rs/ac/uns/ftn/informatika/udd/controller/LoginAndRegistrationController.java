@@ -17,11 +17,12 @@ public class LoginAndRegistrationController {
     @Autowired
     ILoginAndRegistrationService iLoginAndRegistrationService;
 
-    @CrossOrigin
+    @SuppressWarnings("unchecked")
+	@CrossOrigin
     @PostMapping("login")
     public ResponseEntity<User> login(@RequestBody LoginDto loginDto) {
         User user = iLoginAndRegistrationService.login(loginDto);
-        return user == null ?  new ResponseEntity(HttpStatus.BAD_REQUEST) : new ResponseEntity<User>(user, HttpStatus.OK);
+        return user == null ?  new ResponseEntity<User>(HttpStatus.BAD_REQUEST) : new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
     @CrossOrigin
