@@ -1,0 +1,21 @@
+<button class="btn btn-primary" style="background: red; margin: 0px 50px 0px 411px; color:blue" [routerLink]="['/languages/add/0']">Add new language</button>
+<table datatable id="bookTable" class="table" style="width: 500px; margin:10px 50px 50px 50px;">
+		<thead style="border:2px solid #ED7537;">
+			<tr>
+			<th scope="col">
+					Id
+				</th>
+				<th scope="col">
+					Name
+				</th>
+				<th scope="col">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let lan of languages" >
+				<td scope="row">{{lan.id}}</td>
+				<td scope="row">{{lan.name}}</td>
+				<td scope="row"><button class="btn btn-primary" (click)="edit(lan.id)">Edit</button></td>
+			</tr>
+		</tbody>
+	</table>

@@ -16,6 +16,8 @@ import { BooksComponent } from './books/books.component';
 import { AddBookComponent } from './add-book/add-book.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
+import { LanguagesComponent } from './languages/languages.component';
+import { AddLanguageComponent } from './add-language/add-language.component';
 
 const Routes = [
     {
@@ -31,7 +33,7 @@ const Routes = [
         component: BooksComponent
     },
   {
-      path: "books/add",
+      path: "books/add/:id",
       component: AddBookComponent
     },
   {
@@ -39,8 +41,17 @@ const Routes = [
         component: CategoriesComponent
     },
     {
-        path: "categories/add",
+        path: "categories/add/:id",
         component: AddCategoryComponent
+    }
+    ,
+  {
+        path: "languages",
+        component: LanguagesComponent
+    },
+    {
+        path: "languages/add/:id",
+        component: AddLanguageComponent
     }
     ]
 @NgModule({
@@ -51,7 +62,9 @@ const Routes = [
     BooksComponent,
     AddBookComponent,
     CategoriesComponent,
-    AddCategoryComponent
+    AddCategoryComponent,
+    LanguagesComponent,
+    AddLanguageComponent
   ],
   imports: [
     BrowserModule,

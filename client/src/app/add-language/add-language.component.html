@@ -1,0 +1,13 @@
+<div class="col-md-6 col-md-offset-3">
+    <h2>{{title}}</h2>
+    <form name="form" (ngSubmit)="f.form.valid && save()" #f="ngForm" novalidate>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="title" [(ngModel)]="language.name" #name="ngModel" required />
+            <div *ngIf="f.submitted && !name.valid" class="help-block">Name is required</div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</div>

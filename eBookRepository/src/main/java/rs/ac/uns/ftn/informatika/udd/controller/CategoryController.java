@@ -56,7 +56,7 @@ public class CategoryController {
 
 		Category categoryFromDb = iCategoryRepository.save(category);
 
-		return categoryFromDb != null ? new ResponseEntity(HttpStatus.CREATED)
+		return categoryFromDb != null ? new ResponseEntity(HttpStatus.OK)
 				: new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 }
