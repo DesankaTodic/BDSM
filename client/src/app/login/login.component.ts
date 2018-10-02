@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
         .subscribe(
         (data: any) => {
           if (data.status == 200) {
-            localStorage.setItem('user', JSON.stringify(data.body));
+            localStorage.setItem('user', data.body.id);
             localStorage.setItem('role', data.role);
             window.location.reload();
             //this.router.navigateByUrl('/repository');

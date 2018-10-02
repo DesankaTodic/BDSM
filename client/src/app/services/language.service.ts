@@ -27,15 +27,15 @@ export class LanguageService extends BaseService{
     edit(language: Language): Observable<{}> {
         return this.http.put(this.baseUrl + 'editLan', language, {observe: 'response'})
           .pipe(
-          tap((response: any) => console.log(`create language`)),
-          catchError(this.handleError('create language failed', []))
+          tap((response: any) => console.log(`edit language`)),
+          catchError(this.handleError('edit language failed', []))
           );
       }   
   
     getOne(id: number): Observable<{}> {
       return this.http.get(this.baseUrl + 'getOneLan/' + id, {observe: 'response'})
         .pipe(
-        tap((response: any) => console.log(`gatting language`)),
+        tap((response: any) => console.log(`getting language`)),
         catchError(this.handleError('getting language failed', []))
         );
     }   
@@ -43,7 +43,7 @@ export class LanguageService extends BaseService{
     getAll(): Observable<{}> {
         return this.http.get(this.baseUrl + 'getAllLan', {observe: 'response'})
           .pipe(
-          tap((response: any) => console.log(`gatting languages`)),
+          tap((response: any) => console.log(`getting languages`)),
           catchError(this.handleError('getting languages failed', []))
           );
       }   

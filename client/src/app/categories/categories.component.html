@@ -1,4 +1,4 @@
-<button class="btn btn-primary" style="background: red; margin: 0px 50px 0px 411px; color:blue" [routerLink]="['/categories/add']">Add new category</button>
+<button class="btn btn-primary" style="background: red; margin: 0px 50px 0px 411px; color:blue" [routerLink]="['/categories/add/0']">Add new category</button>
 <table datatable id="bookTable" class="table" style="width: 500px; margin:10px 50px 50px 50px;">
 		<thead style="border:2px solid #ED7537;">
 			<tr>
@@ -13,9 +13,9 @@
 		</thead>
 		<tbody>
 			<tr *ngFor="let category of categories" >
-				<td scope="row"></td>
-				<td scope="row"></td>
-				<td scope="row"><button>Edit</button></td>
+				<td scope="row">{{category.id}}</td>
+				<td scope="row">{{category.name}}</td>
+				<td scope="row"><button class="btn btn-primary" (click)="edit(category.id)">Edit</button></td>
 			</tr>
 		</tbody>
 	</table>

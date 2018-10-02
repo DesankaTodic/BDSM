@@ -1,0 +1,33 @@
+<button class="btn btn-primary" style="background: red; margin:10px; float:right;" [routerLink]="['/registration/0']">Add new user</button>
+<table datatable id="bookTable" class="table">
+		<thead style="border:2px solid #ED7537;">
+			<tr>
+				<th scope="col">
+					First Name
+				</th>
+				<th scope="col">
+					Last Name
+				</th>
+				<th scope="col">
+					Username
+				</th>
+				<th scope="col">
+					Email
+				</th>
+				<th scope="col">
+					User Type
+				</th>
+				<th scope="col">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let user of users" >
+				<td scope="row">{{user.firstName}}</td>
+				<td scope="row">{{user.lastName}}</td>
+				<td scope="row">{{user.username}}</td>
+				<td scope="row">{{user.email}}</td>
+				<td scope="row">{{user.userType}}</td>
+				<td scope="row"><button class="btn btn-primary" (click)="edit(user.id)">Edit</button></td>
+			</tr>
+		</tbody>
+	</table>

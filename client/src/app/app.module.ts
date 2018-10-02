@@ -18,6 +18,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { LanguagesComponent } from './languages/languages.component';
 import { AddLanguageComponent } from './add-language/add-language.component';
+import { UsersComponent } from './users/users.component';
 
 const Routes = [
     {
@@ -25,8 +26,12 @@ const Routes = [
         component: LoginComponent
     },
   {
-        path: "registration",
+        path: "registration/:id",
         component: RegistrationComponent
+    },
+  {
+        path: "users",
+        component: UsersComponent
     },
   {
         path: "books",
@@ -52,6 +57,10 @@ const Routes = [
     {
         path: "languages/add/:id",
         component: AddLanguageComponent
+    },
+    {
+        path: "profile",
+        component: RegistrationComponent
     }
     ]
 @NgModule({
@@ -64,7 +73,8 @@ const Routes = [
     CategoriesComponent,
     AddCategoryComponent,
     LanguagesComponent,
-    AddLanguageComponent
+    AddLanguageComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
