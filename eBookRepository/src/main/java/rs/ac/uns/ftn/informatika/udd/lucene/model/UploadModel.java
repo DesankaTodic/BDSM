@@ -2,39 +2,28 @@ package rs.ac.uns.ftn.informatika.udd.lucene.model;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Arrays;
 
+@Getter
+@Setter
 public class UploadModel {
+
+	private Long id;
 
     private String title;
     
     private String keywords;
+    
+	private String author;
+    
+    private Long language;
+
+	private Long category;
 
     private MultipartFile[] files;
-
-    public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getKeywords() {
-		return keywords;
-	}
-
-	public void setKeywords(String keywords) {
-		this.keywords = keywords;
-	}
-
-	public MultipartFile[] getFiles() {
-        return files;
-    }
-
-    public void setFiles(MultipartFile[] files) {
-        this.files = files;
-    }
 
     @Override
     public String toString() {

@@ -8,4 +8,6 @@ export class Book {
   mime: string | null;
   categoryId: number | null;
   languageId: number | null;
+  categoryName: string | null;
+  languageName: string | null;
 }

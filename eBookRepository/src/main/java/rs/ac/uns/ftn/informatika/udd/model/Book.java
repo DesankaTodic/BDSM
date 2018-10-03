@@ -40,36 +40,13 @@ public class Book {
     private String mime;
 
     private Long languageId;
+    private String languageName;
 
     private Long categoryId;
+    private String categoryName;
 
     public Book() {
         super();
         // TODO Auto-generated constructor stub
     }
-
-    public Book(String title, String author, String keywords, int publicationYear, String filename, String mime) {
-        super();
-        this.title = title;
-        this.author = author;
-        this.keywords = keywords;
-        this.publicationYear = publicationYear;
-        this.filename = filename;
-        this.mime = mime;
-    }
-
-    public Book(Long id, String title, String author, String keywords, int publicationYear, String filename,
-                String mime, Long languageId, Long categoryId) {
-        super();
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.keywords = keywords;
-        this.publicationYear = publicationYear;
-        this.filename = filename;
-        this.mime = mime;
-        this.languageId = languageId;
-        this.categoryId = categoryId;
-    }
-
 }

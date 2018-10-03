@@ -1,37 +1,39 @@
-<button class="btn btn-primary" style="background: pink; float: right; margin: 10px; color:blue" [routerLink]="['/books/add']">Add new book</button>
+
+<div class="form-group">
+	<select class="form-control inline" name="category"
+		[(ngModel)]="categoryId" (ngModelChange)="initBooks()">
+		<option value="-1">ALL</option>
+		<option *ngFor="let category of categories" value={{category.id}}>{{category.name}}</option>
+	</select>
+	<button class="btn btn-primary inline"
+		style="background: pink; float: right; margin: 10px; color: blue"
+		[routerLink]="['/books/add/0']">Add new book</button>
+</div>
 <table datatable id="bookTable" class="table">
-		<thead style="border:2px solid #ED7537;">
-			<tr>
-				<th scope="col">
-					Title
-				</th>
-				<th scope="col">
-					Author
-				</th>
-				<th scope="col">
-					Keywords
-				</th>
-				<th scope="col">
-					Publication year
-				</th>
-				<th scope="col">
-					Filename
-				</th>
-				<th scope="col">
-					MIME
-				</th>
-				<th scope="col">Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr *ngFor="let book of books" >
-				<td scope="row"></td>
-				<td scope="row"></td>
-                <td scope="row"></td>
-				<td scope="row"></td>
-				<td scope="row"></td>
-				<td scope="row"></td>
-				<td scope="row"><button>Edit</button></td>
-			</tr>
-		</tbody>
-	</table>
+	<thead style="border: 2px solid #ED7537;">
+		<tr>
+			<th scope="col">Title</th>
+			<th scope="col">Author</th>
+			<th scope="col">Keywords</th>
+			<th scope="col">Publication year</th>
+			<th scope="col">Filename</th>
+			<th scope="col">MIME</th>
+			<th scope="col">Category</th>
+			<th scope="col">Language</th>
+			<th scope="col">Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let book of books">
+			<td scope="row">{{book.title}}</td>
+			<td scope="row">{{book.author}}</td>
+			<td scope="row">{{book.keywords}}</td>
+			<td scope="row">{{book.publicationYear}}</td>
+			<td scope="row">{{book.filename}}</td>
+			<td scope="row">{{book.mime}}</td>
+			<td scope="row">{{book.categoryId}}</td>
+			<td scope="row">{{book.languageId}}</td>
+			<td scope="row"><button class="btn btn-primary" (click)="edit(book.id)">Edit</button></td>
+		</tr>
+	</tbody>
+</table>
