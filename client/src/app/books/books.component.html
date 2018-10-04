@@ -31,9 +31,9 @@
 			<td scope="row">{{book.publicationYear}}</td>
 			<td scope="row">{{book.filename}}</td>
 			<td scope="row">{{book.mime}}</td>
-			<td scope="row">{{book.categoryId}}</td>
-			<td scope="row">{{book.languageId}}</td>
-			<td scope="row"><button class="btn btn-primary" (click)="edit(book.id)">Edit</button></td>
+			<td scope="row">{{book.categoryName}}</td>
+			<td scope="row">{{book.languageName}}</td>
+			<td scope="row"><button class="btn btn-primary inline" (click)="edit(book.id)">Edit</button><button class="btn btn-primary inline" (click)="download(book.id, book.title)">Download</button></td>
 		</tr>
 	</tbody>
 </table>

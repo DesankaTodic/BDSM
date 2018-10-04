@@ -2,7 +2,7 @@ import { Book } from '../models/book';
 import { Category } from '../models/category';
 import { BaseService } from './base.service';
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, ResponseContentType } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
@@ -48,11 +48,19 @@ export class BookService extends BaseService{
         );
     } 
   
-  fetchMetadata(file: File): Observable<{}> {
+  fetchMetadata(file: FormData): Observable<{}> {
       return this.http.post(this.baseUrl + 'metadata', file, {observe: 'response'})
         .pipe(
         tap((response: any) => console.log(`get metadata book`)),
         catchError(this.handleError('get metadata book failed', []))
+        );
+    }  
+    
+    download(id: number): Observable<{}> {
+      return this.http.get(this.baseUrl + '/download/' + id, {observe: 'response'})
+        .pipe(
+        tap((response: ResponseContentType.Blob) => console.log(`download metadata book`)),
+        catchError(this.handleError('download metadata book failed', []))
         );
     }   
  }
