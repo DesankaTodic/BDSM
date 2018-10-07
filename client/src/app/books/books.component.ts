@@ -4,6 +4,8 @@ import { BookService } from '../services/book.service';
 import { CategoryService } from '../services/category.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {saveAs as importedSaveAs} from 'file-saver';
+
 
 @Component({
   selector: 'app-books',
@@ -23,7 +25,7 @@ export class BooksComponent implements OnInit {
   }
   initBooks() {
     this.bookService.getAllFromCategory(this.categoryId).subscribe((data: any) => {
-      if (data.status == 200) {
+      if (data.status === 200) {
         this.books = data.body;
         //alert("Get categories done!");
       } else {
@@ -34,38 +36,21 @@ export class BooksComponent implements OnInit {
 
   initCategories() {
     this.categoryService.getAll().subscribe((data: any) => {
-      if (data.status == 200) {
+      if (data.status === 200) {
         this.categories = data.body;
         //alert("Get categories done!");
       } else {
-        alert("smt went wrong impossible")
+        alert('smt went wrong impossible')
       }
-    }, () => console.log("Get categories completed"));
+    }, () => console.log('Get categories completed'));
   }
   edit(id: number) {
     this.router.navigate(['/categories/add', id]);
   }
 
-  download(id: number, title: string) {
-    this.bookService.download(id).subscribe((data: any) => {
-      if (data.status == 200) {
-        
-        alert("Download started!");
-         let name = title;
-
-        let fileBlob = data.blob();
-        var a = document.createElement("a");
-        document.body.appendChild(a);
-        var file = new Blob([fileBlob], {type: 'application/pdf'});
-        var fileURL = window.URL.createObjectURL(file);
-        a.href = fileURL;
-        a.download = name.toLowerCase() + ".pdf";
-        a.click();
-
-        return file;
-      } else {
-        alert("smt went wrong impossible")
-      }
-    }, () => console.log("Get download completed"));
+  download(id, title) {
+    this.bookService.download(id).subscribe(blob => {
+            importedSaveAs(blob, title);
+        });
   }
 }

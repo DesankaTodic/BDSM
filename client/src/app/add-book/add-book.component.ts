@@ -106,6 +106,7 @@ export class AddBookComponent implements OnInit {
     this.luceneService.save(payload).subscribe((data: any) => {
       if (data.status == 200) {
          alert('You have successfully uploaded the book!');
+         this.router.navigateByUrl('/books');
       } else {
         alert("smt went wrong impossible")
       }

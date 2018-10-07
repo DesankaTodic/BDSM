@@ -2,9 +2,11 @@ import { Book } from '../models/book';
 import { Category } from '../models/category';
 import { BaseService } from './base.service';
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpHeaders, ResponseContentType } from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, map } from 'rxjs/operators';
+import { Http, Response } from '@angular/http';
+import { RequestOptions, ResponseContentType } from '@angular/http';
 
 @Injectable()
 export class BookService extends BaseService{
@@ -55,12 +57,9 @@ export class BookService extends BaseService{
         catchError(this.handleError('get metadata book failed', []))
         );
     }  
-    
-    download(id: number): Observable<{}> {
-      return this.http.get(this.baseUrl + '/download/' + id, {observe: 'response'})
-        .pipe(
-        tap((response: ResponseContentType.Blob) => console.log(`download metadata book`)),
-        catchError(this.handleError('download metadata book failed', []))
-        );
-    }   
+
+    // https://stackoverflow.com/questions/35138424/how-do-i-download-a-file-with-angular2
+    download(id: number) {
+    return this.http.get(this.baseUrl + 'download/' + id, {responseType: 'blob' })
+}
  }
