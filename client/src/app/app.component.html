@@ -8,7 +8,7 @@
             <li class="nav-item"><a class="nav-link" [routerLink]="['/languages']">Languages</a></li>
 			<li class="nav-item"><a class="nav-link" [routerLink]="['/categories']">Categories</a></li>
 			<li class="nav-item"><a class="nav-link" [routerLink]="['/profile']" *ngIf="loggedIn">My profile</a></li>
-            <li class="nav-item"><a class="nav-link" routerLink="courses">Search</a></li>
+            <li class="nav-item"><a class="nav-link" [routerLink]="['/search']">Search</a></li>
           	<li class="nav-item" *ngIf="loggedIn"><a class="nav-link" (click)="logout()" routerLink="/login">Logout</a></li>
         </ul>
     </div>
