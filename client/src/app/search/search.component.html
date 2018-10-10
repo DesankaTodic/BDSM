@@ -1,3 +1,91 @@
-<p>
-  search works!
-</p>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3" style="width: 30%;margin-left:20%;">
+      <h3>Basic query</h3>
+      <form name="form" (ngSubmit)="onSubmitSimple(f)" #f="ngForm" novalidate>
+          <div class="form-group">
+              <label>Choose search type</label>
+              <select name="simple_field_type" [(ngModel)]="simple_query_type" required>
+                <option *ngFor="let type of types" value={{type}}>{{type}}</option>
+              </select>
+        </div>
+          <div class="form-group">
+              <label>Choose field</label>
+              <select name="simple_field" [(ngModel)]="simple_query.field" required>
+                <option *ngFor="let field of fields" value={{field}}>{{field}}</option>
+              </select>
+          </div>
+          <div class="form-group">
+              <label>Type search value</label>
+          <input type="text" name="simple_value" [(ngModel)]="simple_query.value" required/>
+          </div>
+          <div class="form-group">
+              <button class="btn btn-primary">Search</button>
+          </div>
+      </form>
+  </div>
+
+  <div class="col-md-6 col-md-offset-3" style="width: 30%;margin-left:20px;">
+      <h3>Advanced query</h3>
+      <form name="form" (ngSubmit)="onSubmitAdvanced(f)" #f="ngForm" novalidate>
+          <div class="form-group">
+            <label>Choose field1</label>
+            <select name="advanced_field1" [(ngModel)]="advanced_query.field1" required>
+                <option *ngFor="let field of fields" value={{field}}>{{field}}</option>
+            </select>
+        </div>
+          <div class="form-group">
+              <label>Type field1 value</label>
+              <input type="text" name="advanced_value1" [(ngModel)]="advanced_query.value1" required/>
+          </div>
+          <div class="form-group">
+              <label>Choose search operation</label>
+              <select name="advanced_operation" [(ngModel)]="advanced_query.operation" required>
+                <option *ngFor="let operation of operations" value={{operation}}>{{operation}}</option>
+              </select>
+          </div>
+          <div class="form-group">
+            <label>Choose field2</label>
+            <select name="advanced_field2" [(ngModel)]="advanced_query.field2" required>
+              <option *ngFor="let field of fields" value={{field}}>{{field}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Type field2 value</label>
+            <input type="text" name="advanced_value2" [(ngModel)]="advanced_query.value2" required/>
+          </div>
+          <div class="form-group">
+              <button class="btn btn-primary">Search</button>
+          </div>
+      </form>
+  </div>
+</div>
+
+<p>Search results</p>
+<table datatable id="bookTable" class="table">
+	<thead style="border: 2px solid #ED7537;">
+		<tr>
+			<th scope="col">Title</th>
+			<th scope="col">Author</th>
+			<th scope="col">Keywords</th>
+			<th scope="col">Publication year</th>
+			<th scope="col">Filename</th>
+			<th scope="col">MIME</th>
+			<th scope="col">Category</th>
+			<th scope="col">Language</th>
+			<th scope="col">Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let book of books">
+			<td scope="row">{{book.title}}</td>
+			<td scope="row">{{book.author}}</td>
+			<td scope="row">{{book.keywords}}</td>
+			<td scope="row">{{book.publicationYear}}</td>
+			<td scope="row">{{book.filename}}</td>
+			<td scope="row">{{book.mime}}</td>
+			<td scope="row">{{book.categoryName}}</td>
+			<td scope="row">{{book.languageName}}</td>
+			<td scope="row"><button class="btn btn-primary inline" (click)="download(book.id, book.title)">Download</button></td>
+		</tr>
+	</tbody>
+</table>

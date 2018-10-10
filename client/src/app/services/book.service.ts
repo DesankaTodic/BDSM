@@ -60,6 +60,14 @@ export class BookService extends BaseService{
 
     // https://stackoverflow.com/questions/35138424/how-do-i-download-a-file-with-angular2
     download(id: number) {
-    return this.http.get(this.baseUrl + 'download/' + id, {responseType: 'blob' })
-}
+      return this.http.get(this.baseUrl + 'download/' + id, {responseType: 'blob' })
+    }
+
+    simpleSearch(type, query) {
+      return this.http.post("http://localhost:8080/search/" + type, query) as Observable<any>;
+    }
+
+    advancedSearch(advancedQuery) {
+      return this.http.post("http://localhost:8080//search/boolean", advancedQuery) as Observable<any>;
+    }
  }

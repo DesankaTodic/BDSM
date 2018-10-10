@@ -52,5 +52,5 @@ export class BooksComponent implements OnInit {
     this.bookService.download(id).subscribe(blob => {
             importedSaveAs(blob, title);
         });
-  }
+    }
 }
