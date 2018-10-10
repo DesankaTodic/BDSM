@@ -45,7 +45,7 @@ export class BooksComponent implements OnInit {
     }, () => console.log('Get categories completed'));
   }
   edit(id: number) {
-    this.router.navigate(['/categories/add', id]);
+    this.router.navigate(['/books/add', id]);
   }
 
   download(id, title) {

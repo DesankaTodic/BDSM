@@ -44,6 +44,9 @@ public class Book {
 
     private Long categoryId;
     private String categoryName;
+    
+	@Transient
+	private String highlight;
 
     public Book() {
         super();

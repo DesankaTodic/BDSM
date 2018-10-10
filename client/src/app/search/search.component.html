@@ -67,12 +67,9 @@
 			<th scope="col">Title</th>
 			<th scope="col">Author</th>
 			<th scope="col">Keywords</th>
-			<th scope="col">Publication year</th>
-			<th scope="col">Filename</th>
-			<th scope="col">MIME</th>
-			<th scope="col">Category</th>
-			<th scope="col">Language</th>
-			<th scope="col">Action</th>
+            <th scope="col">Language</th>
+            <th scope="col">Text</th>
+            <th scope="col">Action</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -80,11 +77,8 @@
 			<td scope="row">{{book.title}}</td>
 			<td scope="row">{{book.author}}</td>
 			<td scope="row">{{book.keywords}}</td>
-			<td scope="row">{{book.publicationYear}}</td>
-			<td scope="row">{{book.filename}}</td>
-			<td scope="row">{{book.mime}}</td>
-			<td scope="row">{{book.categoryName}}</td>
-			<td scope="row">{{book.languageName}}</td>
+            <td scope="row">{{book.languageName}}</td>
+            <td scope="row">{{book.highlight}}</td>
 			<td scope="row"><button class="btn btn-primary inline" (click)="download(book.id, book.title)">Download</button></td>
 		</tr>
 	</tbody>

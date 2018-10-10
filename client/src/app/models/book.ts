@@ -10,4 +10,5 @@ export class Book {
   languageId: number | null;
   categoryName: string | null;
   languageName: string | null;
+  highlight: string | null;
 }

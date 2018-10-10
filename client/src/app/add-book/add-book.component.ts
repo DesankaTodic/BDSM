@@ -21,6 +21,8 @@ export class AddBookComponent implements OnInit {
   languages: Language[];
   bookId: number;
   file: File;
+  isEdit: boolean = false;
+
   constructor(private route: ActivatedRoute, private bookService: BookService, private luceneService: LuceneService, private languageService: LanguageService,
     private categoryService: CategoryService, private router: Router) {
     this.route.params.subscribe(params => {
@@ -37,6 +39,7 @@ export class AddBookComponent implements OnInit {
 
   initBook() {
     if (this.bookId) {
+      this.isEdit = true;
       this.bookService.getOne(this.bookId).subscribe((data: any) => {
         if (data.status == 200) {
           this.book = data.body;
@@ -53,7 +56,9 @@ export class AddBookComponent implements OnInit {
     this.categoryService.getAll().subscribe((data: any) => {
       if (data.status == 200) {
         this.categories = data.body;
-        this.book.categoryId = data.body[0].id;
+        if(!this.isEdit) {
+          this.book.categoryId = data.body[0].id;
+        }
         //alert("Get categories done!");
       } else {
         alert("smt went wrong impossible")
@@ -65,8 +70,9 @@ export class AddBookComponent implements OnInit {
     this.languageService.getAll().subscribe((data: any) => {
       if (data.status == 200) {
         this.languages = data.body;
+        if(!this.isEdit) {
             this.book.languageId = data.body[0].id;
-
+        }
         //alert("Get categories done!");
       } else {
         alert("smt went wrong impossible")
@@ -93,24 +99,35 @@ export class AddBookComponent implements OnInit {
   }
 
   save() {
-    let payload = new FormData();
+    if (!this.isEdit) {
+      let payload = new FormData();
 
-    payload.append('files', this.file);
-    payload.append('title', this.book.title);
-    payload.append('author', this.book.author);
-    payload.append('keywords', this.book.keywords);
-    payload.append('id', this.book.id.toString());
-    payload.append('language', this.book.languageId.toString());
-    payload.append('category', this.book.categoryId.toString());
+      payload.append('files', this.file);
+      payload.append('title', this.book.title);
+      payload.append('author', this.book.author);
+      payload.append('keywords', this.book.keywords);
+      payload.append('id', this.book.id.toString());
+      payload.append('language', this.book.languageId.toString());
+      payload.append('category', this.book.categoryId.toString());
 
-    this.luceneService.save(payload).subscribe((data: any) => {
-      if (data.status == 200) {
-         alert('You have successfully uploaded the book!');
-         this.router.navigateByUrl('/books');
-      } else {
-        alert("smt went wrong impossible")
-      }
-    }, () => console.log("Save book completed"));
+      this.luceneService.save(payload).subscribe((data: any) => {
+        if (data.status == 200) {
+          alert('You have successfully uploaded the book!');
+          this.router.navigateByUrl('/books');
+        } else {
+          alert("smt went wrong impossible")
+        }
+      }, () => console.log("Save book completed"));
+    } else {
+        this.bookService.updateMetadata(this.book).subscribe((data: any) => {
+        if (data.status == 200) {
+          alert('You have successfully updated the book!');
+          this.router.navigateByUrl('/books');
+        } else {
+          alert("smt went wrong impossible")
+        }
+      }, () => console.log("Edit book completed"));
+    }
   }
 
 }

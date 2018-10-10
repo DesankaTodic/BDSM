@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -111,6 +112,8 @@ public class IndexerController {
 				book.setTitle(model.getTitle());
 				book.setFilename(fileName);
 				book.setKeywords(model.getKeywords());
+				book.setCategoryId(model.getCategory());
+				book.setLanguageId(model.getLanguage());
 				book.setCategoryName(iCategoryRepository.getOne(model.getCategory()).getName());
 				book.setLanguageName(iLanguageRepository.getOne(model.getLanguage()).getName());
 				book = iBookRepository.save(book);
@@ -128,7 +131,7 @@ public class IndexerController {
 		}
 	}
 	
-	@PostMapping("/update/metadata")
+	@PutMapping("/update/metadata")
 	public ResponseEntity<Book> metadataUpdate(@RequestBody Book book) {
 		book.setCategoryName(iCategoryRepository.getOne(book.getCategoryId()).getName());
 		book.setLanguageName(iLanguageRepository.getOne(book.getLanguageId()).getName());

@@ -32,8 +32,7 @@
 				<option *ngFor="let category of categories" value={{category.id}}>{{category.name}}</option>
 			</select>
 		</div>
-		<div class="form-group"
-			[ngClass]="{ 'has-error': f.submitted && !file.valid }">
+		<div class="form-group" *ngIf="!isEdit" [ngClass]="{ 'has-error': f.submitted && !file.valid }">
 			<label for="file">File</label> 
 			<input type="file"
 				class="form-control" name="file" required (change)="fetchMetadata($event.target.files)"/>

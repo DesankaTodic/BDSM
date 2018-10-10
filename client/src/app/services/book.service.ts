@@ -68,6 +68,11 @@ export class BookService extends BaseService{
     }
 
     advancedSearch(advancedQuery) {
-      return this.http.post("http://localhost:8080//search/boolean", advancedQuery) as Observable<any>;
+      return this.http.post("http://localhost:8080/search/boolean", advancedQuery) as Observable<any>;
+    }
+
+    updateMetadata(book: Book): Observable<{}>{
+      return this.http.put("http://localhost:8080/update/metadata", book, {observe: 'response'}) as Observable<any>;
+
     }
  }
