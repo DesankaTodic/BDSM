@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import rs.ac.uns.ftn.informatika.udd.lucene.indexing.filters.CyrillicLatinConverter;
 import rs.ac.uns.ftn.informatika.udd.lucene.model.AdvancedQuery;
 import rs.ac.uns.ftn.informatika.udd.lucene.model.RequiredHighlight;
 import rs.ac.uns.ftn.informatika.udd.lucene.model.SearchType;
@@ -27,11 +28,24 @@ public class SearchController {
 		private ResultRetriever resultRetriever;
 	
 		@PostMapping(value="/search/term", consumes="application/json")
-		public ResponseEntity<List<Book>> searchTermQuery(@RequestBody SimpleQuery simpleQuery) throws Exception {		
-			org.elasticsearch.index.query.QueryBuilder query= QueryBuilder.buildQuery(SearchType.regular, simpleQuery.getField(), simpleQuery.getValue());
+		public ResponseEntity<List<Book>> searchTermQuery(@RequestBody SimpleQuery simpleQuery) throws Exception {
+			//latinica 
+			String latin = toLowerCaseAndLatin(simpleQuery.getValue()); 
+			String cir = toLowerCaseAndCir(simpleQuery.getValue());
+				
+			org.elasticsearch.index.query.QueryBuilder query1 = QueryBuilder.buildQuery(SearchType.regular, simpleQuery.getField(), latin);
+			org.elasticsearch.index.query.QueryBuilder query2 = QueryBuilder.buildQuery(SearchType.regular, simpleQuery.getField(), cir);
+			
+			BoolQueryBuilder builder = QueryBuilders.boolQuery();
+			builder.should(query1);
+			builder.should(query2);
+			
 			List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
-			rh.add(new RequiredHighlight(simpleQuery.getField(), simpleQuery.getValue()));
-			List<Book> results = resultRetriever.getResults(query, rh);			
+			
+			rh.add(new RequiredHighlight(simpleQuery.getField(), cir));
+			rh.add(new RequiredHighlight(simpleQuery.getField(), latin));
+				
+			List<Book> results = resultRetriever.getResults(builder, rh);			
 			return new ResponseEntity<List<Book>>(results, HttpStatus.OK);
 		}
 		
@@ -102,7 +116,17 @@ public class SearchController {
 			List<Book> results = resultRetriever.getResults(query, rh);
 			return new ResponseEntity<List<Book>>(results, HttpStatus.OK);
 		}
-	
 		
+		private String toLowerCaseAndLatin(String s) {
+			String x = s.toLowerCase();
+			x = CyrillicLatinConverter.cir2lat(x);
+			return x;
+		}
+		
+		private String toLowerCaseAndCir(String s) {
+			String x = s.toLowerCase();
+			x = CyrillicLatinConverter.lat2cir(x);
+			return x;
+		}
 	
 }

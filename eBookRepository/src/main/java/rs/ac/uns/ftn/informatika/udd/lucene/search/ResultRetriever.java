@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.common.text.Text;
+import org.elasticsearch.search.highlight.HighlightBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
@@ -38,7 +39,7 @@ public class ResultRetriever {
 
 	public List<Book> getResults(org.elasticsearch.index.query.QueryBuilder query,
 			List<RequiredHighlight> requiredHighlights) {
-		if (query == null) {
+		/*if (query == null) {
 			return null;
 		}
 			
@@ -56,6 +57,45 @@ public class ResultRetriever {
 		}
         
         mapHighlightedContent(searchQuery, results);
+		return results;*/
+		if (query == null) {
+			return null;
+		}
+
+		List<Book> results = new ArrayList<Book>();
+
+		NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder()
+				.withQuery(query);
+
+		if (requiredHighlights.get(0).getFieldName().equals("text")) 
+			nativeSearchQueryBuilder.withHighlightFields(new HighlightBuilder.Field("text"));
+		
+		SearchQuery searchQuery = nativeSearchQueryBuilder.build();
+
+		List<IndexUnit> indexUnits = template.queryForList(searchQuery, IndexUnit.class);
+
+		for (IndexUnit indexUnit : indexUnits) {
+			
+			Book result = bookRepository.findOne(indexUnit.getInternalId());
+			
+//			Book result = new Book();
+//			result.setAuthor(indexUnit.getAuthor());
+//			result.setTitle(indexUnit.getTitle());
+//			result.setKeywords(indexUnit.getKeywords());
+//			result.setFilename(indexUnit.getFilename());
+//			result.setLanguage(languageRepository.findByName(indexUnit.getLanguage()));
+//			result.setCategory(categoryRepository.findByName(indexUnit.getCategory()));
+//			result.setId(indexUnit.getInternalId());
+			
+			result.setHighlight("");
+			results.add(result);
+		}
+		if (requiredHighlights.get(0).getFieldName().equals("text")) {
+			mapHighlightedContent(searchQuery, results);
+		} else {
+			//results.forEach(book -> book.setHighlight(""));
+		}
+
 		return results;
 	}
 	
