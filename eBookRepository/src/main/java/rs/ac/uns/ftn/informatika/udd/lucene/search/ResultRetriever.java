@@ -77,24 +77,14 @@ public class ResultRetriever {
 		for (IndexUnit indexUnit : indexUnits) {
 			
 			Book result = bookRepository.findOne(indexUnit.getInternalId());
-			
-//			Book result = new Book();
-//			result.setAuthor(indexUnit.getAuthor());
-//			result.setTitle(indexUnit.getTitle());
-//			result.setKeywords(indexUnit.getKeywords());
-//			result.setFilename(indexUnit.getFilename());
-//			result.setLanguage(languageRepository.findByName(indexUnit.getLanguage()));
-//			result.setCategory(categoryRepository.findByName(indexUnit.getCategory()));
-//			result.setId(indexUnit.getInternalId());
-			
-			result.setHighlight("");
-			results.add(result);
+			if(result != null) {
+				result.setHighlight("");
+				results.add(result);
+			}
 		}
-		if (requiredHighlights.get(0).getFieldName().equals("text")) {
+		if (requiredHighlights.get(0).getFieldName().equals("text") && results.size() != 0) {
 			mapHighlightedContent(searchQuery, results);
-		} else {
-			//results.forEach(book -> book.setHighlight(""));
-		}
+		} 
 
 		return results;
 	}
