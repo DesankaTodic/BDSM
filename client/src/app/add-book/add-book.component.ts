@@ -15,13 +15,14 @@ import { ActivatedRoute, Router } from '@angular/router';
   providers: [BookService, LanguageService, CategoryService, LuceneService]
 })
 export class AddBookComponent implements OnInit {
-  title = 'Add book';
+  pageTitle = 'Add book';
   book: Book = new Book();
   categories: Category[];
   languages: Language[];
   bookId: number;
   file: File;
   isEdit: boolean = false;
+  readonlyMetadata: boolean = true;
 
   constructor(private route: ActivatedRoute, private bookService: BookService, private luceneService: LuceneService, private languageService: LanguageService,
     private categoryService: CategoryService, private router: Router) {
@@ -40,10 +41,11 @@ export class AddBookComponent implements OnInit {
   initBook() {
     if (this.bookId) {
       this.isEdit = true;
+      this.readonlyMetadata = false;
       this.bookService.getOne(this.bookId).subscribe((data: any) => {
         if (data.status == 200) {
           this.book = data.body;
-          this.title = 'Edit book';
+          this.pageTitle = 'Edit book';
           //alert("Get category done!");
         } else {
           alert("smt went wrong impossible")
@@ -90,6 +92,7 @@ export class AddBookComponent implements OnInit {
           this.book.title = data.body.Title;
           this.book.author = data.body.Author;
           this.book.keywords = data.body.Keywords;
+          this.readonlyMetadata = false;
           //alert("Get categories done!");
         } else {
           alert("smt went wrong impossible")

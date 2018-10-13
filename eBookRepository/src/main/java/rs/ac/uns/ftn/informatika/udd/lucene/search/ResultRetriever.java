@@ -27,76 +27,72 @@ import rs.ac.uns.ftn.informatika.udd.repository.IBookRepository;
 
 @Service
 public class ResultRetriever {
-	
+
 	private ElasticsearchTemplate template;
 	private IBookRepository bookRepository;
-	
+
 	@Autowired
-	public ResultRetriever(ElasticsearchTemplate template, IBookRepository bookRepository){
+	public ResultRetriever(ElasticsearchTemplate template, IBookRepository bookRepository) {
 		this.template = template;
 		this.bookRepository = bookRepository;
 	}
 
 	public List<Book> getResults(org.elasticsearch.index.query.QueryBuilder query,
 			List<RequiredHighlight> requiredHighlights) {
-		/*if (query == null) {
-			return null;
-		}
-			
-		List<Book> results = new ArrayList<Book>();
-		
-        SearchQuery searchQuery = new NativeSearchQueryBuilder()
-				.withQuery(query)
-				.build();
-       
-        List<IndexUnit> indexUnits = template.queryForList(searchQuery, IndexUnit.class);
-
-        for (IndexUnit indexUnit : indexUnits) {
-        	Book book = bookRepository.findOne(indexUnit.getInternalId());
-        	results.add(book);
-		}
-        
-        mapHighlightedContent(searchQuery, results);
-		return results;*/
+		/*
+		 * if (query == null) { return null; }
+		 * 
+		 * List<Book> results = new ArrayList<Book>();
+		 * 
+		 * SearchQuery searchQuery = new NativeSearchQueryBuilder() .withQuery(query)
+		 * .build();
+		 * 
+		 * List<IndexUnit> indexUnits = template.queryForList(searchQuery,
+		 * IndexUnit.class);
+		 * 
+		 * for (IndexUnit indexUnit : indexUnits) { Book book =
+		 * bookRepository.findOne(indexUnit.getInternalId()); results.add(book); }
+		 * 
+		 * mapHighlightedContent(searchQuery, results); return results;
+		 */
 		if (query == null) {
 			return null;
 		}
 
 		List<Book> results = new ArrayList<Book>();
 
-		NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder()
-				.withQuery(query);
+		NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder().withQuery(query);
 
-		if (requiredHighlights.get(0).getFieldName().equals("text")) 
+		if (requiredHighlights.get(0).getFieldName().equals("text"))
 			nativeSearchQueryBuilder.withHighlightFields(new HighlightBuilder.Field("text"));
-		
+
 		SearchQuery searchQuery = nativeSearchQueryBuilder.build();
 
 		List<IndexUnit> indexUnits = template.queryForList(searchQuery, IndexUnit.class);
 
 		for (IndexUnit indexUnit : indexUnits) {
-			
+
 			Book result = bookRepository.findOne(indexUnit.getInternalId());
-			if(result != null) {
+			if (result != null) {
 				result.setHighlight("");
 				results.add(result);
 			}
 		}
 		if (requiredHighlights.get(0).getFieldName().equals("text") && results.size() != 0) {
 			mapHighlightedContent(searchQuery, results);
-		} 
+		}
 
 		return results;
 	}
-	
-	protected DocumentHandler getHandler(String fileName){
-		if(fileName.endsWith(".pdf")){
+
+	protected DocumentHandler getHandler(String fileName) {
+		if (fileName.endsWith(".pdf")) {
 			return new PDFHandler();
-		}else{
+		} else {
 			return null;
 		}
 	}
-	
+
 	private void mapHighlightedContent(SearchQuery searchQuery, final List<Book> books) {
 		template.queryForPage(searchQuery, Book.class, new SearchResultMapper() {
 
@@ -106,8 +102,11 @@ public class ResultRetriever {
 						return null;
 					}
 					String highlight = "";
-					for (Text s : searchResponse.getHits().getAt(i).getHighlightFields().get("text").getFragments()) {
-						highlight += s.string();
+					if (searchResponse.getHits().getAt(i).getHighlightFields() != null) {
+						for (Text s : searchResponse.getHits().getAt(i).getHighlightFields().get("text")
+								.getFragments()) {
+							highlight += s.string();
+						}
 					}
 					books.get(i).setHighlight(highlight);
 				}
