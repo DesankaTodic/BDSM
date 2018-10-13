@@ -37,7 +37,7 @@ public class IndexerController {
 	ICategoryRepository iCategoryRepository;
 	@Autowired
 	ILanguageRepository iLanguageRepository;
-	
+
 	private static String DATA_DIR_PATH;
 
 	static {
@@ -130,7 +130,7 @@ public class IndexerController {
 			}
 		}
 	}
-	
+
 	@PutMapping("/update/metadata")
 	public ResponseEntity<Book> metadataUpdate(@RequestBody Book book) {
 		book.setCategoryName(iCategoryRepository.getOne(book.getCategoryId()).getName());
@@ -146,7 +146,7 @@ public class IndexerController {
 		return new ResponseEntity<Book>(book, HttpStatus.OK);
 
 	}
-	
+
 	private void reindexUploadedFile(Book book) throws IOException {
 
 		IndexUnit indexUnit = indexer.getHandler(book.getFilename()).getIndexUnit(new File(book.getFilename()));

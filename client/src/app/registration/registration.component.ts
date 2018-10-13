@@ -46,7 +46,7 @@ export class RegistrationComponent implements OnInit {
         }
       }, () => console.log("Get user completed"));
     } else if(this.userId === 0){
-      this.user.userType = 'ADMIN';
+      this.user.role = 'ADMIN';
     } else {
         var userId = localStorage.getItem('user');
         this.userService.getOne(+userId).subscribe((data: any) => {
@@ -75,8 +75,8 @@ export class RegistrationComponent implements OnInit {
   }
   
   changeUserType($event: any) {
-    this.user.userType = $event.target.value;
-    alert(this.user.userType);
+    this.user.role = $event.target.value;
+    alert(this.user.role);
   }
 
   register() {

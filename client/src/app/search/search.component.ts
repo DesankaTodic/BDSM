@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {saveAs as importedSaveAs} from 'file-saver';
+import { saveAs as importedSaveAs } from 'file-saver';
 import { BookService } from '../services/book.service';
 
 
@@ -16,31 +16,37 @@ export class SearchComponent implements OnInit {
 
   private operations = ['and', 'or', 'not'];
 
-  private simple_query = { field : "", value : ""};
+  private simple_query = { field: "", value: "" };
   private simple_query_type = "";
 
-  private advanced_query = { field1 : "",
-                             value1 : "",
-                             field2 : "",
-                             value2 : "",
-                             operation : ""
-                            };
+  private advanced_query = {
+    field1: "",
+    value1: "",
+    field2: "",
+    value2: "",
+    operation: ""
+  };
 
   private books = [];
 
-  constructor(private bookService : BookService) { }
+  role: string;
+  subscriberCategory: number | null;
+
+  constructor(private bookService: BookService) { }
 
   ngOnInit() {
+    this.role = localStorage.getItem('role');
+    this.subscriberCategory = +localStorage.getItem('category');
   }
 
-  onSubmitSimple(form){
+  onSubmitSimple(form) {
     console.log(this.simple_query);
     console.log(this.simple_query_type);
 
-    if (this.simple_query_type === ""){
+    if (this.simple_query_type === "") {
       alert("Error : choose search type.");
     }
-    else if (this.simple_query.field == ""){
+    else if (this.simple_query.field == "") {
       alert("Error : choose search field.");
     }
     else {
@@ -73,10 +79,10 @@ export class SearchComponent implements OnInit {
   }
 
 
-    download(id, title) {
+  download(id, title) {
     this.bookService.download(id).subscribe(blob => {
-            importedSaveAs(blob, title);
-        });
-    }
+      importedSaveAs(blob, title);
+    });
+  }
 
 }

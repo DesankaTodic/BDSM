@@ -7,6 +7,6 @@ export class Admin implements CanActivate {
   constructor() {}
 
   canActivate() {
-    return localStorage.getItem('type') == 'ADMIN';
+    return localStorage.getItem('role') == 'ADMIN';
   }
 }

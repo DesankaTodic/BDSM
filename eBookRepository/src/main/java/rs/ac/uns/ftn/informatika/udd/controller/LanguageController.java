@@ -56,7 +56,6 @@ public class LanguageController {
 
 		Language languageFromDb = iLanguageRepository.save(language);
 
-		return languageFromDb != null ? new ResponseEntity(HttpStatus.OK)
-				: new ResponseEntity(HttpStatus.BAD_REQUEST);
+		return languageFromDb != null ? new ResponseEntity(HttpStatus.OK) : new ResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 }

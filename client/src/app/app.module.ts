@@ -4,6 +4,8 @@ import { FormsModule }   from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -24,15 +26,18 @@ import { SearchComponent } from './search/search.component';
 const Routes = [
     {
         path: "login",
-        component: LoginComponent
+        component: LoginComponent,
+        canActivate: [Notauthorized]
     },
   {
         path: "registration/:id",
-        component: RegistrationComponent
+        component: RegistrationComponent,
+        canActivate: [Admin]
     },
   {
         path: "users",
-        component: UsersComponent
+        component: UsersComponent,
+        canActivate: [Admin]
     },
   {
         path: "books",
@@ -40,28 +45,34 @@ const Routes = [
     },
   {
       path: "books/add/:id",
-      component: AddBookComponent
+      component: AddBookComponent,
+      canActivate: [Admin]
     },
   {
         path: "categories",
-        component: CategoriesComponent
+        component: CategoriesComponent,
+        canActivate: [Admin]
     },
     {
         path: "categories/add/:id",
-        component: AddCategoryComponent
+        component: AddCategoryComponent,
+        canActivate: [Admin]
     }
     ,
   {
         path: "languages",
-        component: LanguagesComponent
+        component: LanguagesComponent,
+        canActivate: [Admin]
     },
     {
         path: "languages/add/:id",
-        component: AddLanguageComponent
+        component: AddLanguageComponent,
+        canActivate: [Admin]
     },
     {
         path: "profile",
-        component: RegistrationComponent
+        component: RegistrationComponent,
+        canActivate: [Authorized]
     },
     {
         path: "search",
@@ -87,7 +98,10 @@ const Routes = [
       FormsModule,
       RouterModule.forRoot(Routes),
       HttpClientModule,
-      HttpModule
+      HttpModule,
+      BrowserAnimationsModule,
+      ToastrModule.forRoot({positionClass: 'toast-bottom-right',
+      preventDuplicates: true, timeOut: 1000})
   ],
   providers: [
       Admin,

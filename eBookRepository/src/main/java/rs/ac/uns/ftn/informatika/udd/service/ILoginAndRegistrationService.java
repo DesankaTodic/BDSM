@@ -5,6 +5,7 @@ import rs.ac.uns.ftn.informatika.udd.model.User;
 
 public interface ILoginAndRegistrationService {
 
-    User login(LoginDto dto);
-    Boolean registrate(User user);
+	User login(LoginDto dto);
+
+	Boolean registrate(User user);
 }

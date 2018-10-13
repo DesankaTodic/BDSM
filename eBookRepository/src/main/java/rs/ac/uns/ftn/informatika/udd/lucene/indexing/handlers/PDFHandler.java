@@ -28,17 +28,17 @@ public class PDFHandler extends DocumentHandler {
 			PDDocument pdf = parser.getPDDocument();
 			PDDocumentInformation info = pdf.getDocumentInformation();
 
-			String title = ""+info.getTitle();
+			String title = "" + info.getTitle();
 			retVal.setTitle(title);
 
-			String keywords = ""+info.getKeywords();
+			String keywords = "" + info.getKeywords();
 			retVal.setKeywords(keywords);
-			
+
 			retVal.setFilename(file.getCanonicalPath());
-			
-			String modificationDate=DateTools.dateToString(new Date(file.lastModified()),DateTools.Resolution.DAY);
+
+			String modificationDate = DateTools.dateToString(new Date(file.lastModified()), DateTools.Resolution.DAY);
 			retVal.setFiledate(modificationDate);
-			
+
 			pdf.close();
 		} catch (IOException e) {
 			System.out.println("Greksa pri konvertovanju dokumenta u pdf");
@@ -60,7 +60,7 @@ public class PDFHandler extends DocumentHandler {
 		}
 		return null;
 	}
-	
+
 	public String getText(PDFParser parser) {
 		try {
 			PDFTextStripper textStripper = new PDFTextStripper();

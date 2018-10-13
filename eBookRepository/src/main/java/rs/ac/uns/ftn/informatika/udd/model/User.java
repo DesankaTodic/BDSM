@@ -1,19 +1,27 @@
 package rs.ac.uns.ftn.informatika.udd.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "user")
 @Getter
 @Setter
+@NoArgsConstructor
 public class User {
 
 	@Id
@@ -49,37 +57,7 @@ public class User {
 	private String password;
 
 	@NotNull
-	private TypeEnum userType;
+	private TypeEnum role;
 
 	private Long categoryId;
-
-	public User() {
-		super();
-	}
-
-	public User(Long id, String username) {
-		super();
-		this.id = id;
-		this.username = username;
-	}
-
-	public User(Long id, String username, String email, String password, TypeEnum type) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.email = email;
-		this.password = password;
-		this.userType = type;
-
-	}
-
-	public User(String username, String firstName, String lastName, String email, String password, TypeEnum type) {
-		super();
-		this.username = username;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.password = password;
-		this.userType = type;
-	}
 }

@@ -7,7 +7,7 @@
 	</select>
 	<button class="btn btn-primary inline"
 		style="background: pink; float: right; margin: 10px; color: blue"
-		[routerLink]="['/books/add/0']">Add new book</button>
+		[routerLink]="['/books/add/0']" *ngIf="role == 'ADMIN'">Add new book</button>
 </div>
 <table datatable id="bookTable" class="table">
 	<thead style="border: 2px solid #ED7537;">
@@ -20,7 +20,7 @@
 			<th scope="col">MIME</th>
 			<th scope="col">Category</th>
 			<th scope="col">Language</th>
-			<th scope="col">Action</th>
+			<th scope="col" *ngIf="role == 'ADMIN'">Action</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -33,7 +33,10 @@
 			<td scope="row">{{book.mime}}</td>
 			<td scope="row">{{book.categoryName}}</td>
 			<td scope="row">{{book.languageName}}</td>
-			<td scope="row"><button class="btn btn-primary inline" (click)="edit(book.id)">Edit</button><button class="btn btn-primary inline" (click)="download(book.id, book.title)">Download</button></td>
+			<td scope="row" *ngIf="role != null">
+				<button class="btn btn-primary inline" *ngIf="role == 'ADMIN'" (click)="edit(book.id)">Edit</button>
+				<button class="btn btn-primary inline" *ngIf="book.categoryId == subscriberCategory || role == 'ADMIN'" (click)="download(book.id, book.title)">Download</button>
+			</td>
 		</tr>
 	</tbody>
 </table>

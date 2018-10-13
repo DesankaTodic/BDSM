@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
@@ -7,11 +8,20 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
-  loggedIn = localStorage.getItem('user') != null;
-  
-  logout() {
-     localStorage.removeItem('user');
-     localStorage.removeItem('role');
-     alert('Logout');
+  role: string;
+  constructor(private toastr: ToastrService) {
+  this.role = localStorage.getItem('role');
   }
+  logout() {
+    localStorage.removeItem('user');
+    localStorage.removeItem('role');
+    localStorage.removeItem('category');
+    window.location.reload();
+    //this.toastr.success('Hello world!', 'Toastr fun!');
+  }
+
+  checkIfLoggedIn() {
+    return localStorage.getItem('user') != null;
+  }
+
 }

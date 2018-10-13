@@ -26,28 +26,28 @@ public class XMLIndexer {
 		// TODO Auto-generated method stub
 		Directory indexDir;
 		File dataDir;
-		
-		try{
+
+		try {
 			if (args.length != 2) {
-				ResourceBundle rb=ResourceBundle.getBundle("rs.ac.uns.ftn.informatika.udd.lucene.test.luceneindex");
-				indexDir=new SimpleFSDirectory(FileSystems.getDefault().getPath(rb.getString("indexDir")));
-				dataDir=new File(rb.getString("dataDir"));
-			}else{
+				ResourceBundle rb = ResourceBundle.getBundle("rs.ac.uns.ftn.informatika.udd.lucene.test.luceneindex");
+				indexDir = new SimpleFSDirectory(FileSystems.getDefault().getPath(rb.getString("indexDir")));
+				dataDir = new File(rb.getString("dataDir"));
+			} else {
 				indexDir = new SimpleFSDirectory(FileSystems.getDefault().getPath(args[0]));
 				dataDir = new File(args[1]);
 			}
 			long start = new Date().getTime();
 			int numIndexed = index(indexDir, dataDir);
 			long end = new Date().getTime();
-			System.out.println("Indexing " + numIndexed + " files took "+ (end - start) + " milliseconds");
-		}catch(IOException ioe){
+			System.out.println("Indexing " + numIndexed + " files took " + (end - start) + " milliseconds");
+		} catch (IOException ioe) {
 			ioe.printStackTrace();
 			System.out.println("Problem u pristupu direktorijumima");
 		}
 	}
-	
+
 	// open an index and start file directory traversal
-	
+
 	public static int index(Directory indexDir, File dataDir) throws IOException {
 		if (!dataDir.exists() || !dataDir.isDirectory()) {
 			throw new IOException(dataDir + " does not exist or is not a directory");
@@ -60,6 +60,7 @@ public class XMLIndexer {
 		writer.close();
 		return numIndexed;
 	}
+
 	// recursive method that calls itself when it finds a directory
 	private static void indexDirectory(IndexWriter writer, File dir) throws IOException {
 		File[] files = dir.listFiles();
@@ -72,16 +73,16 @@ public class XMLIndexer {
 			}
 		}
 	}
-	
-	private static void indexFile(IndexWriter writer, File f)throws IOException {
+
+	private static void indexFile(IndexWriter writer, File f) throws IOException {
 		if (f.isHidden() || !f.exists() || !f.canRead()) {
 			return;
 		}
 		System.out.println("Indexing " + f.getCanonicalPath());
-		SAXXMLHandler saxHandler=new SAXXMLHandler();
+		SAXXMLHandler saxHandler = new SAXXMLHandler();
 		Document doc = saxHandler.getDocument(new FileInputStream(f));
-		doc.add(new StringField("filename",f.getCanonicalPath(),Store.YES));
-		System.out.println(doc==null);
+		doc.add(new StringField("filename", f.getCanonicalPath(), Store.YES));
+		System.out.println(doc == null);
 		writer.addDocument(doc);
 	}
 

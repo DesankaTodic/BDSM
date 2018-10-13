@@ -1,12 +1,12 @@
 package rs.ac.uns.ftn.informatika.udd.lucene.model;
 
 public final class ResultData {
-	
+
 	private String title;
 	private String keywords;
 	private String location;
 	private String highlight;
-	
+
 	public ResultData() {
 		super();
 	}

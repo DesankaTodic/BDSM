@@ -1,10 +1,10 @@
 package rs.ac.uns.ftn.informatika.udd.lucene.model;
 
 public final class RequiredHighlight {
-	
+
 	private String fieldName;
 	private String value;
-	
+
 	public RequiredHighlight() {
 		super();
 	}

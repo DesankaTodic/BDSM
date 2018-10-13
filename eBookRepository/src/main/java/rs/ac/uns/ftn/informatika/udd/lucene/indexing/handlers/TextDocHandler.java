@@ -20,15 +20,14 @@ public class TextDocHandler extends DocumentHandler {
 		BufferedReader reader = null;
 		try {
 			FileInputStream fis = new FileInputStream(file);
-			reader = new BufferedReader(new InputStreamReader(
-					fis, "UTF8"));
+			reader = new BufferedReader(new InputStreamReader(fis, "UTF8"));
 
 			String firstLine = reader.readLine(); // u prvoj liniji svake
 													// tekstualne datoteke se
 													// nalazi naslov rada
 
 			retVal.setTitle(firstLine);
-			
+
 			/*
 			 * add other custom metadata
 			 */
@@ -45,10 +44,10 @@ public class TextDocHandler extends DocumentHandler {
 				fullText += " " + secondLine;
 			}
 			retVal.setText(fullText);
-			
+
 			retVal.setFilename(file.getCanonicalPath());
-			
-			String modificationDate=DateTools.dateToString(new Date(file.lastModified()),DateTools.Resolution.DAY);
+
+			String modificationDate = DateTools.dateToString(new Date(file.lastModified()), DateTools.Resolution.DAY);
 			retVal.setFiledate(modificationDate);
 
 			return retVal;
@@ -57,7 +56,7 @@ public class TextDocHandler extends DocumentHandler {
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Greska: Datoteka nije u redu");
 		} finally {
-			if(reader != null)
+			if (reader != null)
 				try {
 					reader.close();
 				} catch (IOException e) {
@@ -70,8 +69,7 @@ public class TextDocHandler extends DocumentHandler {
 		BufferedReader reader = null;
 		try {
 			FileInputStream fis = new FileInputStream(file);
-			reader = new BufferedReader(new InputStreamReader(
-					fis, "UTF8"));
+			reader = new BufferedReader(new InputStreamReader(fis, "UTF8"));
 			String secondLine;
 			String fullText = "";
 			while (true) {
@@ -87,7 +85,7 @@ public class TextDocHandler extends DocumentHandler {
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Greska: Datoteka nije u redu");
 		} finally {
-			if(reader != null)
+			if (reader != null)
 				try {
 					reader.close();
 				} catch (IOException e) {

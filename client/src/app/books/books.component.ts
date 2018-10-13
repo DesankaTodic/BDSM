@@ -4,7 +4,7 @@ import { BookService } from '../services/book.service';
 import { CategoryService } from '../services/category.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {saveAs as importedSaveAs} from 'file-saver';
+import { saveAs as importedSaveAs } from 'file-saver';
 
 
 @Component({
@@ -17,12 +17,23 @@ export class BooksComponent implements OnInit {
   categoryId = -1;
   books: Book[];
   categories: Category[];
+
+  role: string;
+  subscriberCategory: number | null;
+
   constructor(private router: Router, private bookService: BookService, private categoryService: CategoryService) { }
 
   ngOnInit() {
     this.initBooks();
     this.initCategories();
+    this.role = localStorage.getItem('role');
+    this.subscriberCategory = +localStorage.getItem('category');
   }
+
+  checkIfLoggedIn() {
+    return localStorage.getItem('user') != null;
+  }
+
   initBooks() {
     this.bookService.getAllFromCategory(this.categoryId).subscribe((data: any) => {
       if (data.status === 200) {
@@ -50,7 +61,7 @@ export class BooksComponent implements OnInit {
 
   download(id, title) {
     this.bookService.download(id).subscribe(blob => {
-            importedSaveAs(blob, title);
-        });
-    }
+      importedSaveAs(blob, title);
+    });
+  }
 }

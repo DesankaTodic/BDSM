@@ -1,7 +1,9 @@
 import { AuthenticationService } from '../services/authentication.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) { }
+  constructor(private authenticationService: AuthenticationService, private router: Router,
+     private toastr: ToastrService) { }
 
   ngOnInit() {
   }
@@ -23,17 +26,14 @@ export class LoginComponent implements OnInit {
         (data: any) => {
           if (data.status == 200) {
             localStorage.setItem('user', data.body.id);
-            localStorage.setItem('role', data.role);
+            localStorage.setItem('category', data.body.category);
+            localStorage.setItem('role', data.body.role);
+            //this.toastr.success('Hello world!', 'Toastr fun!');
             window.location.reload();
-            //this.router.navigateByUrl('/repository');
-            alert("Login done!")
-            form.reset();
           } else {
-            alert("Login failed!")
+            this.toastr.error('Hello world!', 'Toastr fun!');
+            form.reset();
           }
-        },
-        () => console.log("login completed"));
-
-    form.reset();
+        }, () => console.log("login completed"));
   }
 }

@@ -69,7 +69,8 @@
 			<th scope="col">Keywords</th>
             <th scope="col">Language</th>
             <th scope="col">Text</th>
-            <th scope="col">Action</th>
+            <th scope="col" *ngIf="role != null">Action</th>
+            <th scope="col" *ngIf="role == null">Advert</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -79,7 +80,11 @@
 			<td scope="row">{{book.keywords}}</td>
             <td scope="row">{{book.languageName}}</td>
             <td scope="row">{{book.highlight}}</td>
-			<td scope="row"><button class="btn btn-primary inline" (click)="download(book.id, book.title)">Download</button></td>
+			<td scope="row" *ngIf="role != null">
+				<button class="btn btn-primary inline" *ngIf="book.categoryId == this.subscriberCategory" (click)="download(book.id, book.title)">Download</button>
+				<p *ngIf="book.categoryId != this.subscriberCategory">You're not subscribed to this category</p>
+			</td>
+			<td scope="row" *ngIf="role == null">Register for download</td>
 		</tr>
 	</tbody>
 </table>

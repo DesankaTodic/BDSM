@@ -32,14 +32,13 @@
             <div *ngIf="f.submitted && !repeat.valid" class="help-block">Password repeat is required</div>
         </div>
         <div class="form-group">
-            <label for="userType">User Type</label>
-            <select class="form-control" name="userType" [(ngModel)]="user.userType" (change)="changeUserType($event)" [disabled]="isEdit">
+            <label for="userType">Role</label>
+            <select class="form-control" name="userType" [(ngModel)]="user.role" (change)="changeUserType($event)" [disabled]="isEdit">
 		    	<option value="ADMIN">ADMIN</option>
 		    	<option value="SUBSCRIBER">SUBSCRIBER</option>
-		    	<option value="VISITOR">VISITOR</option>
 		  </select>
 		  </div>
-		   <div class="form-group" *ngIf="user.userType == 'SUBSCRIBER'">
+		   <div class="form-group" *ngIf="user.role == 'SUBSCRIBER'">
             <label for="category">Category</label>
             <select class="form-control" name="category" [(ngModel)]="user.categoryId">
 		    	<option value=null>ALL</option>

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,8 +38,8 @@ public class BookController {
 	@GetMapping("getBooksForCat/{id}")
 	public ResponseEntity<List<Book>> getAll(@PathVariable long id) {
 		List<Book> categories = new ArrayList<Book>();
-		if(id == -1) {
-		categories = iBookRepository.findAll();
+		if (id == -1) {
+			categories = iBookRepository.findAll();
 		} else {
 			categories = iBookRepository.findByCategoryId(id);
 		}
@@ -54,7 +53,7 @@ public class BookController {
 		Book book = iBookRepository.findOne(id);
 		return new ResponseEntity<Book>(book, HttpStatus.OK);
 	}
-	
+
 	@CrossOrigin
 	@PostMapping(value = "/metadata")
 	public HashMap<String, String> getMetadata(@RequestBody MultipartFile file) {
@@ -84,7 +83,7 @@ public class BookController {
 		return mmap;
 
 	}
-	
+
 	@RequestMapping(value = "/download/{id}", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> downloadBook(@PathVariable Long id) throws IOException {
 
@@ -104,7 +103,7 @@ public class BookController {
 		// convert file to byte[]
 		byte[] bFile = readBytesFromFile(book.getFilename());
 
-		return new ResponseEntity<byte[]>(bFile,  headers, HttpStatus.OK);
+		return new ResponseEntity<byte[]>(bFile, headers, HttpStatus.OK);
 //		return new ResponseEntity().ok().headers(headers).body(bFile);
 	}
 

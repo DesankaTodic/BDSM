@@ -28,15 +28,14 @@ public class Word2007Handler extends DocumentHandler {
 			String title = props.getCoreProperties().getTitle();
 			retVal.setTitle(title);
 
-			String keywords = props.getCoreProperties()
-					.getUnderlyingProperties().getKeywordsProperty().getValue();
+			String keywords = props.getCoreProperties().getUnderlyingProperties().getKeywordsProperty().getValue();
 			retVal.setKeywords(keywords);
 
 			retVal.setFilename(file.getCanonicalPath());
-			
-			String modificationDate=DateTools.dateToString(new Date(file.lastModified()),DateTools.Resolution.DAY);
+
+			String modificationDate = DateTools.dateToString(new Date(file.lastModified()), DateTools.Resolution.DAY);
 			retVal.setFiledate(modificationDate);
-			
+
 			we.close();
 
 		} catch (Exception e) {
@@ -54,7 +53,7 @@ public class Word2007Handler extends DocumentHandler {
 			XWPFWordExtractor we = new XWPFWordExtractor(wordDoc);
 			text = we.getText();
 			we.close();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println("Problem pri parsiranju docx fajla");
 		}
 		return text;

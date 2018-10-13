@@ -8,14 +8,14 @@
 				<th scope="col">
 					Name
 				</th>
-				<th scope="col">Action</th>
+				<th scope="col" *ngIf="role == 'ADMIN'">Action</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr *ngFor="let category of categories" >
 				<td scope="row">{{category.id}}</td>
 				<td scope="row">{{category.name}}</td>
-				<td scope="row"><button class="btn btn-primary" (click)="edit(category.id)">Edit</button></td>
+				<td scope="row" *ngIf="role == 'ADMIN'"><button class="btn btn-primary" (click)="edit(category.id)">Edit</button></td>
 			</tr>
 		</tbody>
 	</table>

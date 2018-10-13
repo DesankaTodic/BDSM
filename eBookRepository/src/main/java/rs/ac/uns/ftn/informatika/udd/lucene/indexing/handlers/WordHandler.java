@@ -24,7 +24,7 @@ public class WordHandler extends DocumentHandler {
 			WordExtractor we = new WordExtractor(is);
 			String text = we.getText();
 			retVal.setText(text);
-			
+
 			// pomocu SummaryInformation objekta izvuci ostale metapodatke
 			SummaryInformation si = we.getSummaryInformation();
 			String title = si.getTitle();
@@ -32,12 +32,12 @@ public class WordHandler extends DocumentHandler {
 
 			String keywords = si.getKeywords();
 			retVal.setKeywords(keywords);
-			
+
 			retVal.setFilename(file.getCanonicalPath());
-			
-			String modificationDate=DateTools.dateToString(new Date(file.lastModified()),DateTools.Resolution.DAY);
+
+			String modificationDate = DateTools.dateToString(new Date(file.lastModified()), DateTools.Resolution.DAY);
 			retVal.setFiledate(modificationDate);
-			
+
 			we.close();
 		} catch (FileNotFoundException e1) {
 			System.out.println("Dokument ne postoji");

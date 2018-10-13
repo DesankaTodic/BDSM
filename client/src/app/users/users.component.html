@@ -15,7 +15,7 @@
 					Email
 				</th>
 				<th scope="col">
-					User Type
+					Role
 				</th>
 				<th scope="col">Action</th>
 			</tr>
@@ -26,8 +26,8 @@
 				<td scope="row">{{user.lastName}}</td>
 				<td scope="row">{{user.username}}</td>
 				<td scope="row">{{user.email}}</td>
-				<td scope="row">{{user.userType}}</td>
+				<td scope="row">{{user.role}}</td>
 				<td scope="row"><button class="btn btn-primary" (click)="edit(user.id)">Edit</button></td>
 			</tr>
-		</tbody>
+		</tbody> 
 	</table>

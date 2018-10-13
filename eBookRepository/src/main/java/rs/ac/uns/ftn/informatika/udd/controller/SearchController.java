@@ -26,31 +26,34 @@ import rs.ac.uns.ftn.informatika.udd.model.Book;
 @RestController
 public class SearchController {
 
-		@Autowired
-		private ResultRetriever resultRetriever;
-	
-		@PostMapping(value="/search/term", consumes="application/json")
-		//public ResponseEntity<List<Book>> searchTermQuery(@RequestBody SimpleQuery simpleQuery) throws Exception {
-		public ResponseEntity<Set<Book>> searchTermQuery(@RequestBody SimpleQuery simpleQuery) throws Exception {
-			
-			String latin = toLowerCaseAndLatin(simpleQuery.getValue()); 
-			org.elasticsearch.index.query.QueryBuilder query1= QueryBuilder.buildQuery(SearchType.regular, simpleQuery.getField(), latin);
-			List<RequiredHighlight> rh1 = new ArrayList<RequiredHighlight>();
-			rh1.add(new RequiredHighlight(simpleQuery.getField(), latin));
-			List<Book> results1 = resultRetriever.getResults(query1, rh1);	
-			
-			String cir = toLowerCaseAndCir(simpleQuery.getValue());
-			org.elasticsearch.index.query.QueryBuilder query2= QueryBuilder.buildQuery(SearchType.regular, simpleQuery.getField(), cir);
-			List<RequiredHighlight> rh2 = new ArrayList<RequiredHighlight>();
-			rh2.add(new RequiredHighlight(simpleQuery.getField(), cir));
-			List<Book> results2 = resultRetriever.getResults(query2, rh2);	
-			
-			Set<Book> set = new HashSet<Book>();
-			set.addAll(results1);
-			set.addAll(results2);
-			
-			return new ResponseEntity<Set<Book>>(set, HttpStatus.OK);
-			
+	@Autowired
+	private ResultRetriever resultRetriever;
+
+	@PostMapping(value = "/search/term", consumes = "application/json")
+	// public ResponseEntity<List<Book>> searchTermQuery(@RequestBody SimpleQuery
+	// simpleQuery) throws Exception {
+	public ResponseEntity<Set<Book>> searchTermQuery(@RequestBody SimpleQuery simpleQuery) throws Exception {
+
+		String latin = toLowerCaseAndLatin(simpleQuery.getValue());
+		org.elasticsearch.index.query.QueryBuilder query1 = QueryBuilder.buildQuery(SearchType.regular,
+				simpleQuery.getField(), latin);
+		List<RequiredHighlight> rh1 = new ArrayList<RequiredHighlight>();
+		rh1.add(new RequiredHighlight(simpleQuery.getField(), latin));
+		List<Book> results1 = resultRetriever.getResults(query1, rh1);
+
+		String cir = toLowerCaseAndCir(simpleQuery.getValue());
+		org.elasticsearch.index.query.QueryBuilder query2 = QueryBuilder.buildQuery(SearchType.regular,
+				simpleQuery.getField(), cir);
+		List<RequiredHighlight> rh2 = new ArrayList<RequiredHighlight>();
+		rh2.add(new RequiredHighlight(simpleQuery.getField(), cir));
+		List<Book> results2 = resultRetriever.getResults(query2, rh2);
+
+		Set<Book> set = new HashSet<Book>();
+		set.addAll(results1);
+		set.addAll(results2);
+
+		return new ResponseEntity<Set<Book>>(set, HttpStatus.OK);
+
 //			milica
 //			String latin = toLowerCaseAndLatin(simpleQuery.getValue()); 
 //			String cir = toLowerCaseAndCir(simpleQuery.getValue());
@@ -68,11 +71,11 @@ public class SearchController {
 //			Set<Book> set = new HashSet<Book>();
 //			set.addAll(results);
 //			return new ResponseEntity<Set<Book>>(set, HttpStatus.OK);
-		}
-		
-		@PostMapping(value="/search/fuzzy", consumes="application/json")
-		public ResponseEntity<Set<Book>> searchFuzzy(@RequestBody SimpleQuery simpleQuery) throws Exception {
-			
+	}
+
+	@PostMapping(value = "/search/fuzzy", consumes = "application/json")
+	public ResponseEntity<Set<Book>> searchFuzzy(@RequestBody SimpleQuery simpleQuery) throws Exception {
+
 //			String latin = toLowerCaseAndLatin(simpleQuery.getValue()); 
 //			org.elasticsearch.index.query.QueryBuilder query1= QueryBuilder.buildQuery(SearchType.fuzzy, simpleQuery.getField(), latin);
 //			List<RequiredHighlight> rh1 = new ArrayList<RequiredHighlight>();
@@ -90,53 +93,54 @@ public class SearchController {
 //			set.addAll(results2);
 //			
 //			return new ResponseEntity<Set<Book>>(set, HttpStatus.OK);
-			
+
 //			milica
-			String latin = toLowerCaseAndLatin(simpleQuery.getValue()); 
-			String cir = toLowerCaseAndCir(simpleQuery.getValue());
+		String latin = toLowerCaseAndLatin(simpleQuery.getValue());
+		String cir = toLowerCaseAndCir(simpleQuery.getValue());
 
-			org.elasticsearch.index.query.QueryBuilder query1 = QueryBuilders.fuzzyQuery(simpleQuery.getField(), latin);
-			org.elasticsearch.index.query.QueryBuilder query2 = QueryBuilders.fuzzyQuery(simpleQuery.getField(), cir);
+		org.elasticsearch.index.query.QueryBuilder query1 = QueryBuilders.fuzzyQuery(simpleQuery.getField(), latin);
+		org.elasticsearch.index.query.QueryBuilder query2 = QueryBuilders.fuzzyQuery(simpleQuery.getField(), cir);
 
-			BoolQueryBuilder builder1 = QueryBuilders.boolQuery();
-			
-			builder1.should(query1);
-			builder1.should(query2);
-			
-			List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
-			
-			rh.add(new RequiredHighlight(simpleQuery.getField(), cir));
-			rh.add(new RequiredHighlight(simpleQuery.getField(), latin));
-				
-			List<Book> results = resultRetriever.getResults(builder1, rh);			
-			Set<Book> set = new HashSet<Book>();
-			set.addAll(results);
-			return new ResponseEntity<Set<Book>>(set, HttpStatus.OK);
-		}
-		
-		@PostMapping(value="/search/prefix", consumes="application/json")
-		public ResponseEntity<List<Book>> searchPrefix(@RequestBody SimpleQuery simpleQuery) throws Exception {
-			org.elasticsearch.index.query.QueryBuilder query= QueryBuilder.buildQuery(SearchType.prefix, simpleQuery.getField(), simpleQuery.getValue());
-			List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
-			rh.add(new RequiredHighlight(simpleQuery.getField(), simpleQuery.getValue()));
-			List<Book> results = resultRetriever.getResults(query, rh);			
-			return new ResponseEntity<List<Book>>(results, HttpStatus.OK);
-			
-			
-		}
-		
-		@PostMapping(value="/search/range", consumes="application/json")
-		public ResponseEntity<List<Book>> searchRange(@RequestBody SimpleQuery simpleQuery) throws Exception {
-			org.elasticsearch.index.query.QueryBuilder query= QueryBuilder.buildQuery(SearchType.range, simpleQuery.getField(), simpleQuery.getValue());
-			List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
-			rh.add(new RequiredHighlight(simpleQuery.getField(), simpleQuery.getValue()));
-			List<Book> results = resultRetriever.getResults(query, rh);			
-			return new ResponseEntity<List<Book>>(results, HttpStatus.OK);
-		}
-		
-		@PostMapping(value="/search/phrase", consumes="application/json")
-		public ResponseEntity<Set<Book>> searchPhrase(@RequestBody SimpleQuery simpleQuery) throws Exception {
-	
+		BoolQueryBuilder builder1 = QueryBuilders.boolQuery();
+
+		builder1.should(query1);
+		builder1.should(query2);
+
+		List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
+
+		rh.add(new RequiredHighlight(simpleQuery.getField(), cir));
+		rh.add(new RequiredHighlight(simpleQuery.getField(), latin));
+
+		List<Book> results = resultRetriever.getResults(builder1, rh);
+		Set<Book> set = new HashSet<Book>();
+		set.addAll(results);
+		return new ResponseEntity<Set<Book>>(set, HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/search/prefix", consumes = "application/json")
+	public ResponseEntity<List<Book>> searchPrefix(@RequestBody SimpleQuery simpleQuery) throws Exception {
+		org.elasticsearch.index.query.QueryBuilder query = QueryBuilder.buildQuery(SearchType.prefix,
+				simpleQuery.getField(), simpleQuery.getValue());
+		List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
+		rh.add(new RequiredHighlight(simpleQuery.getField(), simpleQuery.getValue()));
+		List<Book> results = resultRetriever.getResults(query, rh);
+		return new ResponseEntity<List<Book>>(results, HttpStatus.OK);
+
+	}
+
+	@PostMapping(value = "/search/range", consumes = "application/json")
+	public ResponseEntity<List<Book>> searchRange(@RequestBody SimpleQuery simpleQuery) throws Exception {
+		org.elasticsearch.index.query.QueryBuilder query = QueryBuilder.buildQuery(SearchType.range,
+				simpleQuery.getField(), simpleQuery.getValue());
+		List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
+		rh.add(new RequiredHighlight(simpleQuery.getField(), simpleQuery.getValue()));
+		List<Book> results = resultRetriever.getResults(query, rh);
+		return new ResponseEntity<List<Book>>(results, HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/search/phrase", consumes = "application/json")
+	public ResponseEntity<Set<Book>> searchPhrase(@RequestBody SimpleQuery simpleQuery) throws Exception {
+
 //			desa
 //			String latin = toLowerCaseAndLatin(simpleQuery.getValue()); 
 //			org.elasticsearch.index.query.QueryBuilder query1= QueryBuilder.buildQuery(SearchType.phrase, simpleQuery.getField(), latin);
@@ -155,90 +159,94 @@ public class SearchController {
 //			set.addAll(results2);
 //			
 //			return new ResponseEntity<Set<Book>>(set, HttpStatus.OK);
-			
+
 //			milica
-			String latin = toLowerCaseAndLatin(simpleQuery.getValue()); 
-			String cir = toLowerCaseAndCir(simpleQuery.getValue());
+		String latin = toLowerCaseAndLatin(simpleQuery.getValue());
+		String cir = toLowerCaseAndCir(simpleQuery.getValue());
 
-			org.elasticsearch.index.query.QueryBuilder query1 = QueryBuilders.matchPhraseQuery(simpleQuery.getField(), latin);
-			org.elasticsearch.index.query.QueryBuilder query2 = QueryBuilders.matchPhraseQuery(simpleQuery.getField(), cir);
+		org.elasticsearch.index.query.QueryBuilder query1 = QueryBuilders.matchPhraseQuery(simpleQuery.getField(),
+				latin);
+		org.elasticsearch.index.query.QueryBuilder query2 = QueryBuilders.matchPhraseQuery(simpleQuery.getField(), cir);
 
-			BoolQueryBuilder builder1 = QueryBuilders.boolQuery();
-			
-			builder1.should(query1);
-			builder1.should(query2);
-			
-			
-			List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
-			
-			rh.add(new RequiredHighlight(simpleQuery.getField(), cir));
-			rh.add(new RequiredHighlight(simpleQuery.getField(), latin));
-				
-			List<Book> results = resultRetriever.getResults(builder1, rh);			
-			Set<Book> set = new HashSet<Book>();
-			set.addAll(results);
-			return new ResponseEntity<Set<Book>>(set, HttpStatus.OK);
-		}
-		
-		@PostMapping(value="/search/boolean", consumes="application/json")
-		public ResponseEntity<Set<Book>> searchBoolean(@RequestBody AdvancedQuery advancedQuery) throws Exception {
+		BoolQueryBuilder builder1 = QueryBuilders.boolQuery();
+
+		builder1.should(query1);
+		builder1.should(query2);
+
+		List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
+
+		rh.add(new RequiredHighlight(simpleQuery.getField(), cir));
+		rh.add(new RequiredHighlight(simpleQuery.getField(), latin));
+
+		List<Book> results = resultRetriever.getResults(builder1, rh);
+		Set<Book> set = new HashSet<Book>();
+		set.addAll(results);
+		return new ResponseEntity<Set<Book>>(set, HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/search/boolean", consumes = "application/json")
+	public ResponseEntity<Set<Book>> searchBoolean(@RequestBody AdvancedQuery advancedQuery) throws Exception {
 
 //			desa
-			
-			String latinField1 = toLowerCaseAndLatin(advancedQuery.getValue1()); 
-			String latinField2 = toLowerCaseAndLatin(advancedQuery.getValue2()); 
 
-			org.elasticsearch.index.query.QueryBuilder query1 = QueryBuilder.buildQuery(SearchType.regular, advancedQuery.getField1(), latinField1);
-			org.elasticsearch.index.query.QueryBuilder query2 = QueryBuilder.buildQuery(SearchType.regular, advancedQuery.getField2(), latinField2);
-			
-			BoolQueryBuilder builder1 = QueryBuilders.boolQuery();
-			
-			if(advancedQuery.getOperation().equalsIgnoreCase("AND")){
-				builder1.must(query1);
-				builder1.must(query2);
-			}else if(advancedQuery.getOperation().equalsIgnoreCase("OR")){
-				builder1.should(query1);
-				builder1.should(query2);
-			}else if(advancedQuery.getOperation().equalsIgnoreCase("NOT")){
-				builder1.must(query1);
-				builder1.mustNot(query2);
-			}
-			
-			List<RequiredHighlight> rh1 = new ArrayList<RequiredHighlight>();
-			rh1.add(new RequiredHighlight(advancedQuery.getField1(), latinField1));
-			rh1.add(new RequiredHighlight(advancedQuery.getField2(), latinField2));
-			List<Book> results1 = resultRetriever.getResults(builder1, rh1);			
-			
-			String cirField1 = toLowerCaseAndLatin(advancedQuery.getValue1()); 
-			String cirField2 = toLowerCaseAndLatin(advancedQuery.getValue2()); 
+		String latinField1 = toLowerCaseAndLatin(advancedQuery.getValue1());
+		String latinField2 = toLowerCaseAndLatin(advancedQuery.getValue2());
 
-			org.elasticsearch.index.query.QueryBuilder query3 = QueryBuilder.buildQuery(SearchType.regular, advancedQuery.getField1(), cirField1);
-			org.elasticsearch.index.query.QueryBuilder query4 = QueryBuilder.buildQuery(SearchType.regular, advancedQuery.getField2(), cirField2);
-			
-			BoolQueryBuilder builder2 = QueryBuilders.boolQuery();
-			
-			if(advancedQuery.getOperation().equalsIgnoreCase("AND")){
-				builder2.must(query3);
-				builder2.must(query4);
-			}else if(advancedQuery.getOperation().equalsIgnoreCase("OR")){
-				builder2.should(query3);
-				builder2.should(query4);
-			}else if(advancedQuery.getOperation().equalsIgnoreCase("NOT")){
-				builder2.must(query3);
-				builder2.mustNot(query4);
-			}
-			
-			List<RequiredHighlight> rh2 = new ArrayList<RequiredHighlight>();
-			rh2.add(new RequiredHighlight(advancedQuery.getField1(), cirField1));
-			rh2.add(new RequiredHighlight(advancedQuery.getField2(), cirField2));
-			List<Book> results2 = resultRetriever.getResults(builder2, rh2);
-			
-			Set<Book> set = new HashSet<Book>();
-			set.addAll(results1);
-			set.addAll(results2);
-			
-			return new ResponseEntity<Set<Book>>(set, HttpStatus.OK);
-			
+		org.elasticsearch.index.query.QueryBuilder query1 = QueryBuilder.buildQuery(SearchType.regular,
+				advancedQuery.getField1(), latinField1);
+		org.elasticsearch.index.query.QueryBuilder query2 = QueryBuilder.buildQuery(SearchType.regular,
+				advancedQuery.getField2(), latinField2);
+
+		BoolQueryBuilder builder1 = QueryBuilders.boolQuery();
+
+		if (advancedQuery.getOperation().equalsIgnoreCase("AND")) {
+			builder1.must(query1);
+			builder1.must(query2);
+		} else if (advancedQuery.getOperation().equalsIgnoreCase("OR")) {
+			builder1.should(query1);
+			builder1.should(query2);
+		} else if (advancedQuery.getOperation().equalsIgnoreCase("NOT")) {
+			builder1.must(query1);
+			builder1.mustNot(query2);
+		}
+
+		List<RequiredHighlight> rh1 = new ArrayList<RequiredHighlight>();
+		rh1.add(new RequiredHighlight(advancedQuery.getField1(), latinField1));
+		rh1.add(new RequiredHighlight(advancedQuery.getField2(), latinField2));
+		List<Book> results1 = resultRetriever.getResults(builder1, rh1);
+
+		String cirField1 = toLowerCaseAndLatin(advancedQuery.getValue1());
+		String cirField2 = toLowerCaseAndLatin(advancedQuery.getValue2());
+
+		org.elasticsearch.index.query.QueryBuilder query3 = QueryBuilder.buildQuery(SearchType.regular,
+				advancedQuery.getField1(), cirField1);
+		org.elasticsearch.index.query.QueryBuilder query4 = QueryBuilder.buildQuery(SearchType.regular,
+				advancedQuery.getField2(), cirField2);
+
+		BoolQueryBuilder builder2 = QueryBuilders.boolQuery();
+
+		if (advancedQuery.getOperation().equalsIgnoreCase("AND")) {
+			builder2.must(query3);
+			builder2.must(query4);
+		} else if (advancedQuery.getOperation().equalsIgnoreCase("OR")) {
+			builder2.should(query3);
+			builder2.should(query4);
+		} else if (advancedQuery.getOperation().equalsIgnoreCase("NOT")) {
+			builder2.must(query3);
+			builder2.mustNot(query4);
+		}
+
+		List<RequiredHighlight> rh2 = new ArrayList<RequiredHighlight>();
+		rh2.add(new RequiredHighlight(advancedQuery.getField1(), cirField1));
+		rh2.add(new RequiredHighlight(advancedQuery.getField2(), cirField2));
+		List<Book> results2 = resultRetriever.getResults(builder2, rh2);
+
+		Set<Book> set = new HashSet<Book>();
+		set.addAll(results1);
+		set.addAll(results2);
+
+		return new ResponseEntity<Set<Book>>(set, HttpStatus.OK);
+
 //			milica
 //			String latinField1 = toLowerCaseAndLatin(advancedQuery.getValue1()); 
 //			String latinField2 = toLowerCaseAndLatin(advancedQuery.getValue2());
@@ -280,26 +288,26 @@ public class SearchController {
 //			set.addAll(results);
 //			
 //			return new ResponseEntity<Set<Book>>(set, HttpStatus.OK);
-		}
-		
-		@PostMapping(value="/search/queryParser", consumes="application/json")
-		public ResponseEntity<List<Book>> search(@RequestBody SimpleQuery simpleQuery) throws Exception {
-			org.elasticsearch.index.query.QueryBuilder query=QueryBuilders.queryStringQuery(simpleQuery.getValue());			
-			List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
-			List<Book> results = resultRetriever.getResults(query, rh);
-			return new ResponseEntity<List<Book>>(results, HttpStatus.OK);
-		}
-		
-		private String toLowerCaseAndLatin(String s) {
-			String x = s.toLowerCase();
-			x = CyrillicLatinConverter.cir2lat(x);
-			return x;
-		}
-		
-		private String toLowerCaseAndCir(String s) {
-			String x = s.toLowerCase();
-			x = CyrillicLatinConverter.lat2cir(x);
-			return x;
-		}
-	
+	}
+
+	@PostMapping(value = "/search/queryParser", consumes = "application/json")
+	public ResponseEntity<List<Book>> search(@RequestBody SimpleQuery simpleQuery) throws Exception {
+		org.elasticsearch.index.query.QueryBuilder query = QueryBuilders.queryStringQuery(simpleQuery.getValue());
+		List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
+		List<Book> results = resultRetriever.getResults(query, rh);
+		return new ResponseEntity<List<Book>>(results, HttpStatus.OK);
+	}
+
+	private String toLowerCaseAndLatin(String s) {
+		String x = s.toLowerCase();
+		x = CyrillicLatinConverter.cir2lat(x);
+		return x;
+	}
+
+	private String toLowerCaseAndCir(String s) {
+		String x = s.toLowerCase();
+		x = CyrillicLatinConverter.lat2cir(x);
+		return x;
+	}
+
 }

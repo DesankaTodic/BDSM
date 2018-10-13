@@ -17,9 +17,6 @@ import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.informatika.udd.lucene.indexing.handlers.DocumentHandler;
 import rs.ac.uns.ftn.informatika.udd.lucene.indexing.handlers.PDFHandler;
-import rs.ac.uns.ftn.informatika.udd.lucene.indexing.handlers.TextDocHandler;
-import rs.ac.uns.ftn.informatika.udd.lucene.indexing.handlers.Word2007Handler;
-import rs.ac.uns.ftn.informatika.udd.lucene.indexing.handlers.WordHandler;
 import rs.ac.uns.ftn.informatika.udd.lucene.model.IndexUnit;
 import rs.ac.uns.ftn.informatika.udd.lucene.model.RequiredHighlight;
 import rs.ac.uns.ftn.informatika.udd.model.Book;

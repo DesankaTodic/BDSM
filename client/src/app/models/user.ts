@@ -4,7 +4,7 @@ export class User {
   password: string;
   firstName: string;
   lastName: string;
-  userType: string;
+  role: string;
   email: string;
   categoryId: number | null;
 }
