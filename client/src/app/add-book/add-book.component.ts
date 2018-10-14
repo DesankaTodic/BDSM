@@ -48,7 +48,7 @@ export class AddBookComponent implements OnInit {
           this.pageTitle = 'Edit book';
           //alert("Get category done!");
         } else {
-          alert("smt went wrong impossible")
+          alert("Failed. Try again.")
         }
       }, () => console.log("Get book completed"));
     }
@@ -63,7 +63,7 @@ export class AddBookComponent implements OnInit {
         }
         //alert("Get categories done!");
       } else {
-        alert("smt went wrong impossible")
+        alert("Failed. Try again.")
       }
     }, () => console.log("Get categories completed"));
   }
@@ -77,7 +77,7 @@ export class AddBookComponent implements OnInit {
         }
         //alert("Get categories done!");
       } else {
-        alert("smt went wrong impossible")
+        alert("Failed. Try again.")
       }
     }, () => console.log("Get languagaes completed"));
   }
@@ -95,7 +95,7 @@ export class AddBookComponent implements OnInit {
           this.readonlyMetadata = false;
           //alert("Get categories done!");
         } else {
-          alert("smt went wrong impossible")
+          alert("Failed. Try again.")
         }
       }, () => console.log("Get categories completed"));
     }
@@ -115,19 +115,19 @@ export class AddBookComponent implements OnInit {
 
       this.luceneService.save(payload).subscribe((data: any) => {
         if (data.status == 200) {
-          alert('You have successfully uploaded the book!');
+          alert('Successfully uploaded the book.');
           this.router.navigateByUrl('/books');
         } else {
-          alert("smt went wrong impossible")
+          alert("Failed. Try again.")
         }
       }, () => console.log("Save book completed"));
     } else {
         this.bookService.updateMetadata(this.book).subscribe((data: any) => {
         if (data.status == 200) {
-          alert('You have successfully updated the book!');
+          alert('Successfully updated the book.');
           this.router.navigateByUrl('/books');
         } else {
-          alert("smt went wrong impossible")
+          alert("Failed. Try again.")
         }
       }, () => console.log("Edit book completed"));
     }

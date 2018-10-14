@@ -44,10 +44,10 @@ export class SearchComponent implements OnInit {
     console.log(this.simple_query_type);
 
     if (this.simple_query_type === "") {
-      alert("Error : choose search type.");
+      alert("Choose searching type.");
     }
     else if (this.simple_query.field == "") {
-      alert("Error : choose search field.");
+      alert("Choose searching field.");
     }
     else {
       this.bookService.simpleSearch(this.simple_query_type, this.simple_query).subscribe(
@@ -55,7 +55,7 @@ export class SearchComponent implements OnInit {
           this.books = data;
         },
         error => {
-          alert("smt went wrong impossible");
+          alert("Failed. Try again.")
         });
     }
 
@@ -64,16 +64,16 @@ export class SearchComponent implements OnInit {
 
   onSubmitAdvanced() {
     if (this.advanced_query.operation === "")
-      alert("Error choose operation.");
+      alert("Choose searching operation.");
     else if (this.advanced_query.field1 == "" || this.advanced_query.field2 == "")
-      alert("Error choose search field.");
+      alert("Choose searching field.");
     else {
       this.bookService.advancedSearch(this.advanced_query).subscribe(
         data => {
           this.books = data;
         },
         error => {
-          alert("smt went wrong impossible");
+          alert("Failed. Try again.")
         });
     }
   }

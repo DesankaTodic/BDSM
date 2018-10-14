@@ -94,7 +94,8 @@ public class ResultRetriever {
 		template.queryForPage(searchQuery, Book.class, new SearchResultMapper() {
 
 			public <T> AggregatedPage<T> mapResults(SearchResponse searchResponse, Class<T> aClass, Pageable pageable) {
-				for (int i = 0; i < searchResponse.getHits().totalHits(); i++) {
+				//for (int i = 0; i < searchResponse.getHits().totalHits(); i++) {
+				for (int i = 0; i < books.size(); i++) {
 					if (searchResponse.getHits().getHits().length <= 0) {
 						return null;
 					}

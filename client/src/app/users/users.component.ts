@@ -19,7 +19,7 @@ export class UsersComponent implements OnInit {
             this.users = data.body;
             //alert("Get categories done!");
         } else {
-          alert("smt went wrong impossible")
+          alert("Failed. Try again.")
         }
        }, () => console.log("Get users completed"));
      }

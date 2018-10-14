@@ -38,9 +38,8 @@ export class BooksComponent implements OnInit {
     this.bookService.getAllFromCategory(this.categoryId).subscribe((data: any) => {
       if (data.status === 200) {
         this.books = data.body;
-        //alert("Get categories done!");
       } else {
-        alert("smt went wrong impossible")
+        alert("Failed. Try again.")
       }
     }, () => console.log("Get categories completed"));
   }
@@ -51,7 +50,7 @@ export class BooksComponent implements OnInit {
         this.categories = data.body;
         //alert("Get categories done!");
       } else {
-        alert('smt went wrong impossible')
+        alert("Failed. Try again.")
       }
     }, () => console.log('Get categories completed'));
   }

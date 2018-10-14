@@ -1,15 +1,23 @@
 <nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
-    <div class="container">
-        <a class="navbar-brand">UDD</a>
-        <ul class="nav navbar-nav" routerLinkActive="active">
-            <li class="nav-item" *ngIf="!checkIfLoggedIn()"><a class="nav-link" [routerLink]="['/login']">Login</a></li>
-            <li class="nav-item" *ngIf="role == 'ADMIN'"><a class="nav-link" [routerLink]="['/users']">Users</a></li>
-            <li class="nav-item"><a class="nav-link" [routerLink]="['/books']">Books</a></li>
+    <div class="container" style="margin-right: 0px; margin-left: 0px;width:100%;padding-left: 30px;">
+        <a class="navbar-brand" style="margin-right:30px;">
+            <span class="glyphicon glyphicon-book"></span> E-book repository
+        </a>
+        <ul class="nav navbar-nav" routerLinkActive="active" style="font-size: 18px;">
             <li class="nav-item" *ngIf="role == 'ADMIN'"><a class="nav-link" [routerLink]="['/languages']">Languages</a></li>
-			<li class="nav-item" *ngIf="role != null"><a class="nav-link" [routerLink]="['/categories']">Categories</a></li>
-			<li class="nav-item" *ngIf="role != null"><a class="nav-link" [routerLink]="['/profile']" *ngIf="checkIfLoggedIn()">My profile</a></li>
-            <li class="nav-item"><a class="nav-link" [routerLink]="['/search']">Search</a></li>
-          	<li class="nav-item" *ngIf="checkIfLoggedIn()"><a class="nav-link" (click)="logout()" routerLink="/login">Logout</a></li>
-        </ul>
+            <li class="nav-item" *ngIf="role != null"><a class="nav-link" [routerLink]="['/categories']">Categories</a></li>
+            <li class="nav-item"><a class="nav-link" [routerLink]="['/books']">Books</a></li>
+            <li class="nav-item"><a class="nav-link" [routerLink]="['/search']">Search books</a></li>
+            <li class="nav-item" *ngIf="role == 'ADMIN'"><a class="nav-link" [routerLink]="['/users']">Users</a></li>
+        </ul>     
+        <a *ngIf="!checkIfLoggedIn()" class="navbar-brand" style="float:right;" [routerLink]="['/login']">
+          <span class="glyphicon glyphicon-log-in"></span> Log in
+        </a>
+        <a *ngIf="checkIfLoggedIn()" class="navbar-brand" style="float:right;" (click)="logout()" routerLink="/login">
+          <span class="glyphicon glyphicon-log-out"></span> Log out
+        </a>
+        <a *ngIf="checkIfLoggedIn()" class="navbar-brand" style="float:right;" [routerLink]="['/profile']">
+          <span class="glyphicon glyphicon-user"></span> Profile
+        </a>
     </div>
 <router-outlet></router-outlet>

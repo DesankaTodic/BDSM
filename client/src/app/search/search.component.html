@@ -1,90 +1,171 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3" style="width: 30%;margin-left:20%;">
-      <h3>Basic query</h3>
+      <h3>Basic search</h3>
       <form name="form" (ngSubmit)="onSubmitSimple(f)" #f="ngForm" novalidate>
+          <table style="border-spacing: 10px;">
+              <tbody>
+                  <tr><td><label>Searching type</label></td>
+                    <td><select style="width:100%;" name="simple_field_type" [(ngModel)]="simple_query_type" required>
+                <option *ngFor="let type of types" value={{type}}>{{type}}</option>
+              </select></td></tr>
+                  <tr>
+                      <td><label>Searching field</label></td>
+                      <td><select style="width:100%;" name="simple_field" [(ngModel)]="simple_query.field" required>
+                            <option *ngFor="let field of fields" value={{field}}>{{field}}</option>
+                        </select></td>
+                    </tr>
+                  <tr><td><label>Searching value</label></td>
+                    <td><input type="text" name="simple_value" [(ngModel)]="simple_query.value" required/></td></tr>
+              </tbody>
+          </table>
           <div class="form-group">
-              <label>Choose search type</label>
+            <button type="button" class="btn btn-primary">
+                <span class="glyphicon glyphicon-search"></span> Search
+            </button>          
+        </div>
+          <!-- <div class="form-group">
+              <label>Searching type</label>
               <select name="simple_field_type" [(ngModel)]="simple_query_type" required>
                 <option *ngFor="let type of types" value={{type}}>{{type}}</option>
               </select>
         </div>
           <div class="form-group">
-              <label>Choose field</label>
+              <label>Searching field</label>
               <select name="simple_field" [(ngModel)]="simple_query.field" required>
                 <option *ngFor="let field of fields" value={{field}}>{{field}}</option>
               </select>
           </div>
           <div class="form-group">
-              <label>Type search value</label>
+              <label>Searching value</label>
           <input type="text" name="simple_value" [(ngModel)]="simple_query.value" required/>
           </div>
           <div class="form-group">
               <button class="btn btn-primary">Search</button>
-          </div>
+          </div> -->
       </form>
   </div>
 
   <div class="col-md-6 col-md-offset-3" style="width: 30%;margin-left:20px;">
-      <h3>Advanced query</h3>
+      <h3>Boolean search</h3>
       <form name="form" (ngSubmit)="onSubmitAdvanced(f)" #f="ngForm" novalidate>
+          <table>
+              <tbody>
+                  <tr>
+                      <td>
+                        <label>Searching field1</label>
+                      </td>
+                      <td>
+                        <select style="width:100%;" name="advanced_field1" [(ngModel)]="advanced_query.field1" required>
+                                        <option *ngFor="let field of fields" value={{field}}>{{field}}</option>
+                        </select>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                        <label>Searching value1</label>
+                      </td>
+                      <td>
+                        <input type="text" name="advanced_value1" [(ngModel)]="advanced_query.value1" required/>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                        <label>Searching operation</label>
+                      </td>
+                      <td>
+                        <select style="width:100%;" name="advanced_operation" [(ngModel)]="advanced_query.operation" required>
+                            <option *ngFor="let operation of operations" value={{operation}}>{{operation}}</option>
+                        </select>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                        <label>Searching field2</label>
+                      </td>
+                      <td>
+                        <select style="width:100%;" name="advanced_field2" [(ngModel)]="advanced_query.field2" required>
+                            <option *ngFor="let field of fields" value={{field}}>{{field}}</option>
+                        </select>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                            <label>Searching value1</label>
+                      </td>
+                      <td>
+                          <input type="text" name="advanced_value2" [(ngModel)]="advanced_query.value2" required/>
+
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
           <div class="form-group">
-            <label>Choose field1</label>
+              <button type="button" class="btn btn-primary">
+          			<span class="glyphicon glyphicon-search"></span> Search
+        		</button>
+          </div>
+          <!-- <div class="form-group">
+            <label>Searching field1</label>
             <select name="advanced_field1" [(ngModel)]="advanced_query.field1" required>
                 <option *ngFor="let field of fields" value={{field}}>{{field}}</option>
             </select>
         </div>
           <div class="form-group">
-              <label>Type field1 value</label>
+              <label>Searching value1</label>
               <input type="text" name="advanced_value1" [(ngModel)]="advanced_query.value1" required/>
           </div>
           <div class="form-group">
-              <label>Choose search operation</label>
+              <label>Searching operation</label>
               <select name="advanced_operation" [(ngModel)]="advanced_query.operation" required>
                 <option *ngFor="let operation of operations" value={{operation}}>{{operation}}</option>
               </select>
           </div>
           <div class="form-group">
-            <label>Choose field2</label>
+            <label>Searching field2</label>
             <select name="advanced_field2" [(ngModel)]="advanced_query.field2" required>
               <option *ngFor="let field of fields" value={{field}}>{{field}}</option>
             </select>
           </div>
           <div class="form-group">
-            <label>Type field2 value</label>
+            <label>Searching value1</label>
             <input type="text" name="advanced_value2" [(ngModel)]="advanced_query.value2" required/>
           </div>
           <div class="form-group">
               <button class="btn btn-primary">Search</button>
-          </div>
+          </div> -->
       </form>
   </div>
 </div>
-
-<p>Search results</p>
-<table datatable id="bookTable" class="table">
-	<thead style="border: 2px solid #ED7537;">
-		<tr>
-			<th scope="col">Title</th>
-			<th scope="col">Author</th>
-			<th scope="col">Keywords</th>
-            <th scope="col">Language</th>
-            <th scope="col">Text</th>
-            <th scope="col" *ngIf="role != null">Action</th>
-            <th scope="col" *ngIf="role == null">Advert</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr *ngFor="let book of books">
-			<td scope="row">{{book.title}}</td>
-			<td scope="row">{{book.author}}</td>
-			<td scope="row">{{book.keywords}}</td>
-            <td scope="row">{{book.languageName}}</td>
-            <td scope="row">{{book.highlight}}</td>
-			<td scope="row" *ngIf="role != null">
-				<button class="btn btn-primary inline" *ngIf="book.categoryId == this.subscriberCategory" (click)="download(book.id, book.title)">Download</button>
-				<p *ngIf="book.categoryId != this.subscriberCategory">You're not subscribed to this category</p>
-			</td>
-			<td scope="row" *ngIf="role == null">Register for download</td>
-		</tr>
-	</tbody>
-</table>
+<div class="table-area">
+    <h2>Results</h2>
+    <table datatable class="table table-striped" *ngIf="books != null && books.length != 0">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Keywords</th>
+                <th scope="col">Language</th>
+                <th scope="col">Text</th>
+                <th scope="col" *ngIf="role != null">Action</th>
+                <th scope="col" *ngIf="role == null">Advertisement </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let book of books">
+                <td scope="row">{{book.title}}</td>
+                <td scope="row">{{book.author}}</td>
+                <td scope="row">{{book.keywords}}</td>
+                <td scope="row">{{book.languageName}}</td>
+                <td scope="row">{{book.highlight}}</td>
+                <td scope="row" *ngIf="role != null">
+                    <p *ngIf="role != 'ADMIN' && book.categoryId != this.subscriberCategory">Not subscribed</p>
+                    <button type="button" class="btn btn-default btn-sm" *ngIf="role == 'ADMIN' || book.categoryId == this.subscriberCategory" (click)="download(book.id, book.title)">
+          				<span class="glyphicon glyphicon-cloud-download"></span> Download
+					</button>
+                </td>
+                <td scope="row" *ngIf="role == null">You need to registrate to download books. Send email to <i>registartion.request@ebook.com</i> and follow instructions.</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 *ngIf="books == null || books.length == 0">No books for selected search</h3>
+</div>

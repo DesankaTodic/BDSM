@@ -20,7 +20,7 @@ export class CategoriesComponent implements OnInit {
       if (data.status == 200) {
         this.categories = data.body;
       } else {
-        alert("smt went wrong impossible")
+        alert("Failed. Try again.")
       }
     }, () => console.log("Get categories completed"));
   }

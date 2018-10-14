@@ -1,6 +1,12 @@
-<button class="btn btn-primary" style="background: red; margin: 0px 50px 0px 411px; color:blue" [routerLink]="['/categories/add/0']">Add new category</button>
-<table datatable id="bookTable" class="table" style="width: 500px; margin:10px 50px 50px 50px;">
-		<thead style="border:2px solid #ED7537;">
+<div class="add-area"  *ngIf="role == 'ADMIN'">
+	<button type="button" class="btn btn-info btn-lg" [routerLink]="['/categories/add/0']">
+          <span class="glyphicon glyphicon-plus"></span> Add category
+	</button>
+</div>
+<div class="table-area">
+	<table datatable class="table table-striped">
+		<thead>
+			<caption style="font-size: 22px;">Categories</caption>
 			<tr>
 			<th scope="col">
 					Id
@@ -15,7 +21,10 @@
 			<tr *ngFor="let category of categories" >
 				<td scope="row">{{category.id}}</td>
 				<td scope="row">{{category.name}}</td>
-				<td scope="row" *ngIf="role == 'ADMIN'"><button class="btn btn-primary" (click)="edit(category.id)">Edit</button></td>
+				<td scope="row" *ngIf="role == 'ADMIN'"><button type="button" class="btn btn-default btn-sm" (click)="edit(category.id)">
+          			<span class="glyphicon glyphicon-edit"></span> Edit
+        		</button></td>
 			</tr>
 		</tbody>
 	</table>
+</div>

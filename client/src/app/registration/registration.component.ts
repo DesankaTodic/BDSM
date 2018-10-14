@@ -42,7 +42,7 @@ export class RegistrationComponent implements OnInit {
           this.isEdit = true;
           //alert("Get category done!");
         } else {
-          alert("smt went wrong impossible")
+          alert("Failed. Try again.")
         }
       }, () => console.log("Get user completed"));
     } else if(this.userId === 0){
@@ -53,11 +53,11 @@ export class RegistrationComponent implements OnInit {
           if (data.status == 200) {
             this.user = data.body;
             this.repeat_password = this.user.password;
-            this.title = 'Change your info';
+            this.title = 'Change profile';
             this.isEdit = true;
             //alert("Get category done!");
           } else {
-            alert("smt went wrong impossible")
+            alert("Failed. Try again.")
           }
        }, () => console.log("Get user completed"));
     }

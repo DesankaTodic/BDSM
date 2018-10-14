@@ -25,9 +25,8 @@ export class AddLanguageComponent implements OnInit {
         if (data.status == 200) {
             this.language = data.body;
             this.title = 'Edit language';
-            alert("Get language done!");
         } else {
-          alert("smt went wrong impossible")
+          alert("Failed. Try again.")
         }
        }, () => console.log("Get language completed"));
      }
@@ -38,18 +37,16 @@ export class AddLanguageComponent implements OnInit {
        this.languageService.create(this.language).subscribe((data: any) => {
         if (data.status == 201) {
             this.router.navigateByUrl('/languages');
-            alert("Create language done!");
         } else {
-          alert("smt went wrong impossible")
+          alert("Failed. Try again.")
         }
        }, () => console.log("create language completed"));
      } else {
         this.languageService.edit(this.language).subscribe((data: any) => {
         if (data.status == 200) {
             this.router.navigateByUrl('/languages');
-            alert("Edit language done!");
         } else {
-          alert("smt went wrong impossible")
+          alert("Failed. Try again.")
         }
        }, () => console.log("Edit language completed"));
      }

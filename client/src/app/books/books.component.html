@@ -1,42 +1,52 @@
-
-<div class="form-group">
+<div class="add-area">
+	<button type="button" class="btn btn-info btn-lg" [routerLink]="['/books/add/0']" *ngIf="role == 'ADMIN'">
+		<span class="glyphicon glyphicon-plus"></span> Add book
+	</button>
+</div>
+<div class="select-area">
+	<label>Choose category</label>
 	<select class="form-control inline" name="category"
 		[(ngModel)]="categoryId" (ngModelChange)="initBooks()">
 		<option value="-1">ALL</option>
 		<option *ngFor="let category of categories" value={{category.id}}>{{category.name}}</option>
 	</select>
-	<button class="btn btn-primary inline"
-		style="background: pink; float: right; margin: 10px; color: blue"
-		[routerLink]="['/books/add/0']" *ngIf="role == 'ADMIN'">Add new book</button>
 </div>
-<table datatable id="bookTable" class="table">
-	<thead style="border: 2px solid #ED7537;">
-		<tr>
-			<th scope="col">Title</th>
-			<th scope="col">Author</th>
-			<th scope="col">Keywords</th>
-			<th scope="col">Publication year</th>
-			<th scope="col">Filename</th>
-			<th scope="col">MIME</th>
-			<th scope="col">Category</th>
-			<th scope="col">Language</th>
-			<th scope="col" *ngIf="role == 'ADMIN'">Action</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr *ngFor="let book of books">
-			<td scope="row">{{book.title}}</td>
-			<td scope="row">{{book.author}}</td>
-			<td scope="row">{{book.keywords}}</td>
-			<td scope="row">{{book.publicationYear}}</td>
-			<td scope="row">{{book.filename}}</td>
-			<td scope="row">{{book.mime}}</td>
-			<td scope="row">{{book.categoryName}}</td>
-			<td scope="row">{{book.languageName}}</td>
-			<td scope="row" *ngIf="role != null">
-				<button class="btn btn-primary inline" *ngIf="role == 'ADMIN'" (click)="edit(book.id)">Edit</button>
-				<button class="btn btn-primary inline" *ngIf="book.categoryId == subscriberCategory || role == 'ADMIN'" (click)="download(book.id, book.title)">Download</button>
-			</td>
-		</tr>
-	</tbody>
-</table>
+<div class="table-area">
+	<table datatable class="table table-striped" *ngIf="books != null && books.length != 0">		
+		<thead>
+			<caption style="font-size: 22px;">Books</caption>
+			<tr>
+				<th scope="col">Title</th>
+				<th scope="col">Author</th>
+				<th scope="col">Keywords</th>
+				<th scope="col">Publication year</th>
+				<th scope="col">Filename</th>
+				<th scope="col">MIME</th>
+				<th scope="col">Category</th>
+				<th scope="col">Language</th>
+				<th scope="col" *ngIf="role == 'ADMIN'">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let book of books">
+				<td scope="row">{{book.title}}</td>
+				<td scope="row">{{book.author}}</td>
+				<td scope="row">{{book.keywords}}</td>
+				<td scope="row">{{book.publicationYear}}</td>
+				<td scope="row">{{book.filename}}</td>
+				<td scope="row">{{book.mime}}</td>
+				<td scope="row">{{book.categoryName}}</td>
+				<td scope="row">{{book.languageName}}</td>
+				<td scope="row" *ngIf="role != null">
+					<button type="button" class="btn btn-default btn-sm" *ngIf="role == 'ADMIN'" (click)="edit(book.id)">
+          				<span class="glyphicon glyphicon-edit"></span> Edit
+					</button>
+					<button type="button" class="btn btn-default btn-sm" *ngIf="book.categoryId == subscriberCategory || role == 'ADMIN'" (click)="download(book.id, book.title)">
+          				<span class="glyphicon glyphicon-cloud-download"></span> Download
+        			</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<h3 *ngIf="books == null || books.length == 0">No books</h3>
+</div>

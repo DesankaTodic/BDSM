@@ -51,7 +51,7 @@ const Routes = [
   {
         path: "categories",
         component: CategoriesComponent,
-        canActivate: [Admin]
+        canActivate: [Authorized]
     },
     {
         path: "categories/add/:id",
@@ -100,7 +100,7 @@ const Routes = [
       HttpClientModule,
       HttpModule,
       BrowserAnimationsModule,
-      ToastrModule.forRoot({positionClass: 'toast-bottom-right',
+      ToastrModule.forRoot({
       preventDuplicates: true, timeOut: 1000})
   ],
   providers: [

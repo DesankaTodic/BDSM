@@ -17,7 +17,6 @@ export class AppComponent {
     localStorage.removeItem('role');
     localStorage.removeItem('category');
     window.location.reload();
-    //this.toastr.success('Hello world!', 'Toastr fun!');
   }
 
   checkIfLoggedIn() {

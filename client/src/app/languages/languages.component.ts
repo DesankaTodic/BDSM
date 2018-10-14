@@ -17,9 +17,8 @@ export class LanguagesComponent implements OnInit {
     this.languageService.getAll().subscribe((data: any) => {
         if (data.status == 200) {
             this.languages = data.body;
-            alert("Get languages done!");
         } else {
-          alert("smt went wrong impossible")
+          alert("Failed. Try again.")
         }
        }, () => console.log("Get languages completed"));
      }

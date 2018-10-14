@@ -28,10 +28,9 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('user', data.body.id);
             localStorage.setItem('category', data.body.category);
             localStorage.setItem('role', data.body.role);
-            //this.toastr.success('Hello world!', 'Toastr fun!');
             window.location.reload();
           } else {
-            this.toastr.error('Hello world!', 'Toastr fun!');
+            alert("Failed. Try again.")
             form.reset();
           }
         }, () => console.log("login completed"));
