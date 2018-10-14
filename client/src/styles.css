@@ -1,1 +1,80 @@
 /* You can add global styles to this file, and also import other style files */
+.page-header {
+  color: #000066;
+  font-size: 50px;
+}
+
+.form-style {
+  color: #ff8313;
+  font-size: 30px;
+}
+
+.input-text {
+  height: 50px;
+  color: #000066;
+  font-size: 20px;
+}
+
+.submit-button {
+  background-color: #ff8313;
+  font-weight: bold;
+  color: #000066;
+  font-size: 30px;
+}
+
+.intable-button {
+  font-size: 20px;
+  margin-left: 5px;
+}
+
+.add-button {
+  width: 300px;
+  height: 50px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.table-main-div {
+  width: 90%;
+  margin-left: 10%
+}
+
+.table-filter-div {
+  text-align: right;
+}
+
+.filter-div{
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.label-filter-style {
+  font-size: 30px;
+  color: #ff8313;
+  margin-right: 170px;
+}
+
+.select-filter-style {
+  width: 300px;
+  height: 50px;
+  font-size: 30px;
+  color: #000066;
+  font-weight: bold;
+  border-color: #ff8313
+}
+
+.table-thead-style {
+  border: 4px solid #ff8313;
+  font-weight: bold;
+  color: #000066;
+  font-size: 20px;
+}
+
+.table-tbody-style {
+  border: 4px solid #f0bb8b;
+  font-weight: bold;
+  color: #000066;
+  font-size: 15px;
+}
+
+

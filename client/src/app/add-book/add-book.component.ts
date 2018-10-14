@@ -7,6 +7,7 @@ import { LanguageService } from '../services/language.service';
 import { LuceneService } from '../services/lucene.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-book',
@@ -25,7 +26,7 @@ export class AddBookComponent implements OnInit {
   readonlyMetadata: boolean = true;
 
   constructor(private route: ActivatedRoute, private bookService: BookService, private luceneService: LuceneService, private languageService: LanguageService,
-    private categoryService: CategoryService, private router: Router) {
+    private categoryService: CategoryService, private router: Router, private toastr: ToastrService) {
     this.route.params.subscribe(params => {
       this.bookId = +params['id'];
     });
@@ -46,9 +47,9 @@ export class AddBookComponent implements OnInit {
         if (data.status == 200) {
           this.book = data.body;
           this.pageTitle = 'Edit book';
-          //alert("Get category done!");
         } else {
-          alert("smt went wrong impossible")
+          this.toastr.error('Book not found!', 'Error!');
+
         }
       }, () => console.log("Get book completed"));
     }
@@ -61,9 +62,8 @@ export class AddBookComponent implements OnInit {
         if(!this.isEdit) {
           this.book.categoryId = data.body[0].id;
         }
-        //alert("Get categories done!");
       } else {
-        alert("smt went wrong impossible")
+        this.toastr.error('Categories not found!', 'Error!');
       }
     }, () => console.log("Get categories completed"));
   }
@@ -75,9 +75,8 @@ export class AddBookComponent implements OnInit {
         if(!this.isEdit) {
             this.book.languageId = data.body[0].id;
         }
-        //alert("Get categories done!");
       } else {
-        alert("smt went wrong impossible")
+        this.toastr.error('Languages not found!', 'Error!');
       }
     }, () => console.log("Get languagaes completed"));
   }
@@ -93,9 +92,10 @@ export class AddBookComponent implements OnInit {
           this.book.author = data.body.Author;
           this.book.keywords = data.body.Keywords;
           this.readonlyMetadata = false;
-          //alert("Get categories done!");
+          this.toastr.success('Metadata fetched!', 'Success!');
+
         } else {
-          alert("smt went wrong impossible")
+          this.toastr.error('Metadata not found!', 'Error!');
         }
       }, () => console.log("Get categories completed"));
     }
@@ -115,19 +115,19 @@ export class AddBookComponent implements OnInit {
 
       this.luceneService.save(payload).subscribe((data: any) => {
         if (data.status == 200) {
-          alert('You have successfully uploaded the book!');
+          this.toastr.success('Book save success!', 'Success!');
           this.router.navigateByUrl('/books');
         } else {
-          alert("smt went wrong impossible")
+          this.toastr.error('Book save failed!', 'Error!');
         }
       }, () => console.log("Save book completed"));
     } else {
         this.bookService.updateMetadata(this.book).subscribe((data: any) => {
         if (data.status == 200) {
-          alert('You have successfully updated the book!');
+          this.toastr.success('Book updated!', 'Success!');
           this.router.navigateByUrl('/books');
         } else {
-          alert("smt went wrong impossible")
+          this.toastr.error('Book update failed!', 'Error!');
         }
       }, () => console.log("Edit book completed"));
     }

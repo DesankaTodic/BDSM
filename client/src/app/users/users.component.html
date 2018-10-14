@@ -1,6 +1,8 @@
-<button class="btn btn-primary" style="background: red; margin:10px; float:right;" [routerLink]="['/registration/0']">Add new user</button>
+<div class="table-main-div">
+  <h2 class="page-header">Members</h2>
+<button class="btn btn-primary inline submit-button add-button" [routerLink]="['/registration/0']">Add new user</button>
 <table datatable id="bookTable" class="table">
-		<thead style="border:2px solid #ED7537;">
+		<thead class="table-thead-style">
 			<tr>
 				<th scope="col">
 					First Name
@@ -20,14 +22,14 @@
 				<th scope="col">Action</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody class="table-tbody-style">
 			<tr *ngFor="let user of users" >
 				<td scope="row">{{user.firstName}}</td>
 				<td scope="row">{{user.lastName}}</td>
 				<td scope="row">{{user.username}}</td>
 				<td scope="row">{{user.email}}</td>
 				<td scope="row">{{user.role}}</td>
-				<td scope="row"><button class="btn btn-primary" (click)="edit(user.id)">Edit</button></td>
+				<td scope="row"><button class="btn btn-primary inline submit-button intable-button" (click)="edit(user.id)">Edit</button></td>
 			</tr>
-		</tbody> 
+		</tbody>
 	</table>

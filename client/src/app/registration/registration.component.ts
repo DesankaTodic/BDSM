@@ -4,6 +4,7 @@ import { CategoryService } from '../services/category.service';
 import {UserService} from '../services/user.service';
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registration',
@@ -20,7 +21,7 @@ export class RegistrationComponent implements OnInit {
   userId: number;
   uri: string;
   categories: Category[];
-  constructor(private route: ActivatedRoute, private userService: UserService, private categoryService: CategoryService, private router: Router) {
+  constructor(private route: ActivatedRoute, private userService: UserService, private categoryService: CategoryService, private router: Router, private toastr: ToastrService) {
     this.route.params.subscribe(params => {
       this.userId = +params['id'];
     });
@@ -40,9 +41,8 @@ export class RegistrationComponent implements OnInit {
           this.repeat_password = this.user.password;
           this.title = 'Edit user';
           this.isEdit = true;
-          //alert("Get category done!");
         } else {
-          alert("smt went wrong impossible")
+          this.toastr.error('User get failed!', 'Error!');
         }
       }, () => console.log("Get user completed"));
     } else if(this.userId === 0){
@@ -53,27 +53,25 @@ export class RegistrationComponent implements OnInit {
           if (data.status == 200) {
             this.user = data.body;
             this.repeat_password = this.user.password;
-            this.title = 'Change your info';
+            this.title = 'Update profile';
             this.isEdit = true;
-            //alert("Get category done!");
           } else {
-            alert("smt went wrong impossible")
+            this.toastr.error('User get failed!', 'Error!');
           }
        }, () => console.log("Get user completed"));
     }
   }
-  
+
   initCategories() {
     this.categoryService.getAll().subscribe((data: any) => {
         if (data.status == 200) {
             this.categories = data.body;
-            //alert("Get categories done!");
         } else {
-          alert("smt went wrong impossible")
+          this.toastr.error('Category get failed!', 'Error!');
         }
        }, () => console.log("Get categories completed"));
   }
-  
+
   changeUserType($event: any) {
     this.user.role = $event.target.value;
     alert(this.user.role);
@@ -81,25 +79,25 @@ export class RegistrationComponent implements OnInit {
 
   register() {
     if (this.repeat_password !== this.user.password) {
-      alert('Passwords do not match');
+      this.toastr.error('Passwords should match!', 'Error!');
       return;
     }
     if (!this.user.id) {
       this.userService.registrate(this.user).subscribe((data: any) => {
         if (data.status == 201) {
           this.router.navigateByUrl('/users');
-          alert("Create user done!");
+          this.toastr.success('User save success!', 'Success!');
         } else {
-          alert("smt went wrong impossible")
+          this.toastr.error('User save failed!', 'Error!');
         }
       }, () => console.log("create user completed"));
     } else {
       this.userService.edit(this.user).subscribe((data: any) => {
         if (data.status == 200) {
           this.router.navigateByUrl('/users');
-          alert("Edit user done!");
+          this.toastr.success('User edit success!', 'Success!');
         } else {
-          alert("smt went wrong impossible")
+          this.toastr.error('User edit failed!', 'Error!');
         }
       }, () => console.log("Edit user completed"));
     }

@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/../client/src/app/add-book/add-book.component.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/add-book/add-book.component.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/add-category/add-category.component.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/add-category/add-category.component.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/add-language/add-language.component.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/add-language/add-language.component.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/app.component.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/app.component.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/app.module.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/books/books.component.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/books/books.component.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/categories/categories.component.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/categories/categories.component.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/languages/languages.component.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/languages/languages.component.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/login/login.component.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/login/login.component.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/registration/registration.component.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/registration/registration.component.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/search/search.component.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/search/search.component.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/app/users/users.component.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../client/src/styles.css" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/client/node_modules/@angular/cli/models/schematic-command.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/client/src/app/guard/admin.guard.ts" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/client/src/app/guard/authorized.guard.ts" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/client/src/app/guard/notauthorized.guard.ts" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/src/main/java/rs/ac/uns/ftn/informatika/udd/model/User.java" charset="windows-1252" />
   </component>
 </project>

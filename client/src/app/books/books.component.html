@@ -1,42 +1,54 @@
+<div class="table-main-div">
+  <h2 class="page-header">Books</h2>
+  <div class="table-filter-div">
+    <div class="form-group filter-div">
+      <label for="category" class="label-filter-style">Category</label>
+      <select class="form-control inline select-filter-style" name="category"
+              [(ngModel)]="categoryId" (ngModelChange)="initBooks()">
+        <option value="-1">ALL</option>
+        <option *ngFor="let category of categories" value={{category.id}}>{{category.name}}</option>
+      </select>
+      </div>
+      <div class="filter-div">
+        <button class="btn btn-primary inline submit-button add-button"
+                [routerLink]="['/books/add/0']" *ngIf="role == 'ADMIN'">
+          Add new book
+        </button>
+      </div>
+  </div>
+  <h2 *ngIf="books.length == 0" class="page-header">You have not uploaded any books</h2>
 
-<div class="form-group">
-	<select class="form-control inline" name="category"
-		[(ngModel)]="categoryId" (ngModelChange)="initBooks()">
-		<option value="-1">ALL</option>
-		<option *ngFor="let category of categories" value={{category.id}}>{{category.name}}</option>
-	</select>
-	<button class="btn btn-primary inline"
-		style="background: pink; float: right; margin: 10px; color: blue"
-		[routerLink]="['/books/add/0']" *ngIf="role == 'ADMIN'">Add new book</button>
+  <table *ngIf="books.length != 0" datatable id="bookTable" class="table">
+    <thead class="table-thead-style">
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Author</th>
+      <th scope="col">Keywords</th>
+      <th scope="col">Publication year</th>
+      <th scope="col">Filename</th>
+      <th scope="col">MIME</th>
+      <th scope="col">Category</th>
+      <th scope="col">Language</th>
+      <th scope="col" *ngIf="role == 'ADMIN'">Action</th>
+    </tr>
+    </thead>
+    <tbody class="table-tbody-style">
+    <tr *ngFor="let book of books">
+      <td scope="row">{{book.title}}</td>
+      <td scope="row">{{book.author}}</td>
+      <td scope="row">{{book.keywords}}</td>
+      <td scope="row">{{book.publicationYear}}</td>
+      <td scope="row">{{book.filename}}</td>
+      <td scope="row">{{book.mime}}</td>
+      <td scope="row">{{book.categoryName}}</td>
+      <td scope="row">{{book.languageName}}</td>
+      <td scope="row" *ngIf="role != null">
+        <button class="btn btn-primary inline submit-button intable-button" *ngIf="role == 'ADMIN'" (click)="edit(book.id)">Edit</button>
+        <button class="btn btn-primary inline submit-button intable-button" *ngIf="book.categoryId == subscriberCategory || role == 'ADMIN'"
+                (click)="download(book.id, book.title)">Download
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
-<table datatable id="bookTable" class="table">
-	<thead style="border: 2px solid #ED7537;">
-		<tr>
-			<th scope="col">Title</th>
-			<th scope="col">Author</th>
-			<th scope="col">Keywords</th>
-			<th scope="col">Publication year</th>
-			<th scope="col">Filename</th>
-			<th scope="col">MIME</th>
-			<th scope="col">Category</th>
-			<th scope="col">Language</th>
-			<th scope="col" *ngIf="role == 'ADMIN'">Action</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr *ngFor="let book of books">
-			<td scope="row">{{book.title}}</td>
-			<td scope="row">{{book.author}}</td>
-			<td scope="row">{{book.keywords}}</td>
-			<td scope="row">{{book.publicationYear}}</td>
-			<td scope="row">{{book.filename}}</td>
-			<td scope="row">{{book.mime}}</td>
-			<td scope="row">{{book.categoryName}}</td>
-			<td scope="row">{{book.languageName}}</td>
-			<td scope="row" *ngIf="role != null">
-				<button class="btn btn-primary inline" *ngIf="role == 'ADMIN'" (click)="edit(book.id)">Edit</button>
-				<button class="btn btn-primary inline" *ngIf="book.categoryId == subscriberCategory || role == 'ADMIN'" (click)="download(book.id, book.title)">Download</button>
-			</td>
-		</tr>
-	</tbody>
-</table>

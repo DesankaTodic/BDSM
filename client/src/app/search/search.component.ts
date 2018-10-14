@@ -16,15 +16,15 @@ export class SearchComponent implements OnInit {
 
   private operations = ['and', 'or', 'not'];
 
-  private simple_query = { field: "", value: "" };
-  private simple_query_type = "";
+  private simple_query = { field: "title", value: "" };
+  private simple_query_type = "term";
 
   private advanced_query = {
-    field1: "",
+    field1: "title",
     value1: "",
-    field2: "",
+    field2: "title",
     value2: "",
-    operation: ""
+    operation: "or"
   };
 
   private books = [];
@@ -58,8 +58,6 @@ export class SearchComponent implements OnInit {
           alert("smt went wrong impossible");
         });
     }
-
-    //form.reset();
   }
 
   onSubmitAdvanced() {

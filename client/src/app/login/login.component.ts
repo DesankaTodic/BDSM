@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authenticationService: AuthenticationService, private router: Router,
+  constructor(private authenticationService: AuthenticationService,
      private toastr: ToastrService) { }
 
   ngOnInit() {
@@ -28,10 +28,9 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('user', data.body.id);
             localStorage.setItem('category', data.body.category);
             localStorage.setItem('role', data.body.role);
-            //this.toastr.success('Hello world!', 'Toastr fun!');
             window.location.reload();
           } else {
-            this.toastr.error('Hello world!', 'Toastr fun!');
+            this.toastr.error('Login failed! Check your credentials', 'Error!');
             form.reset();
           }
         }, () => console.log("login completed"));

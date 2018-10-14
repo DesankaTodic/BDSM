@@ -1,18 +1,18 @@
 <div class="col-md-6 col-md-offset-3">
-    <h2>Login</h2>
-    <form name="form" (ngSubmit)="f.form.valid && login(f.value, f)" #f="ngForm" novalidate>
+    <h2 class="page-header" >Members only</h2>
+    <form name="form" (ngSubmit)="f.form.valid && login(f.value, f)" #f="ngForm" novalidate class="form-style">
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
             <label for="username">Username</label>
-            <input type="text" class="form-control" name="username" ngModel required #username="ngModel"/>
+            <input type="text" class="form-control input-text" name="username" ngModel required #username="ngModel"/>
             <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
             <label for="password">Password</label>
-            <input type="password" class="form-control" name="password" ngModel #password="ngModel" required />
+            <input type="password" class="form-control input-text" name="password" ngModel #password="ngModel" required/>
             <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
         </div>
         <div class="form-group">
-            <button [disabled]="loading" class="btn btn-primary">Login</button>
+            <button [disabled]="loading" class="btn btn-primary submit-button">Login</button>
         </div>
     </form>
 </div>

@@ -1,6 +1,10 @@
-<button class="btn btn-primary" style="background: red; margin: 0px 50px 0px 411px; color:blue" [routerLink]="['/categories/add/0']">Add new category</button>
-<table datatable id="bookTable" class="table" style="width: 500px; margin:10px 50px 50px 50px;">
-		<thead style="border:2px solid #ED7537;">
+<div class="table-main-div">
+  <h2 class="page-header">Categories</h2>
+  <button class="btn btn-primary submit-button add-button" [routerLink]="['/categories/add/0']">Add new category</button>
+  <h2 *ngIf="categories.length == 0" class="page-header">No categories available</h2>
+
+  <table *ngIf="categories.length != 0" datatable id="bookTable" class="table">
+		<thead class="table-thead-style">
 			<tr>
 			<th scope="col">
 					Id
@@ -11,11 +15,12 @@
 				<th scope="col" *ngIf="role == 'ADMIN'">Action</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody class="table-tbody-style">
 			<tr *ngFor="let category of categories" >
 				<td scope="row">{{category.id}}</td>
 				<td scope="row">{{category.name}}</td>
-				<td scope="row" *ngIf="role == 'ADMIN'"><button class="btn btn-primary" (click)="edit(category.id)">Edit</button></td>
+				<td scope="row" *ngIf="role == 'ADMIN'"><button class="btn btn-primary inline submit-button intable-button" (click)="edit(category.id)">Edit</button></td>
 			</tr>
 		</tbody>
 	</table>
+  </div>

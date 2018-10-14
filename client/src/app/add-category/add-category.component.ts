@@ -2,18 +2,20 @@ import { Category } from '../models/category';
 import { CategoryService } from '../services/category.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-add-category',
   templateUrl: './add-category.component.html',
-  styleUrls: ['./add-category.component.css'], 
+  styleUrls: ['./add-category.component.css'],
   providers: [CategoryService]
 })
 export class AddCategoryComponent implements OnInit {
   title = 'Add category';
   category: Category = new Category();
   catId: number;
-  constructor(private route: ActivatedRoute,private categoryService: CategoryService, private router: Router) { 
+  constructor(private route: ActivatedRoute,private categoryService: CategoryService, private router: Router, private toastr: ToastrService) {
   this.route.params.subscribe(params => {
       this.catId = +params['id'];
     });
@@ -25,9 +27,8 @@ export class AddCategoryComponent implements OnInit {
         if (data.status == 200) {
             this.category = data.body;
             this.title = 'Edit category';
-            //alert("Get category done!");
         } else {
-          alert("smt went wrong impossible")
+          this.toastr.error('Category edit failed!', 'Error!');
         }
        }, () => console.log("Get category completed"));
      }
@@ -38,21 +39,21 @@ export class AddCategoryComponent implements OnInit {
        this.categoryService.create(this.category).subscribe((data: any) => {
         if (data.status == 201) {
             this.router.navigateByUrl('/categories');
-            alert("Create category done!");
+          this.toastr.success('Category save success!', 'Success!');
         } else {
-          alert("smt went wrong impossible")
+          this.toastr.error('Category save failed!', 'Error!');
         }
        }, () => console.log("create category completed"));
      } else {
         this.categoryService.edit(this.category).subscribe((data: any) => {
         if (data.status == 200) {
             this.router.navigateByUrl('/categories');
-            alert("Edit category done!");
+          this.toastr.success('Category edit success!', 'Success!');
         } else {
-          alert("smt went wrong impossible")
+          this.toastr.error('Category edit failed!', 'Error!');
         }
        }, () => console.log("Edit category completed"));
      }
-   } 
+   }
 }
 

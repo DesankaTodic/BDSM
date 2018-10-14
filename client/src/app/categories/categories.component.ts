@@ -2,6 +2,8 @@ import { Category } from '../models/category';
 import { CategoryService } from '../services/category.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-categories',
@@ -11,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class CategoriesComponent implements OnInit {
   categories: Category[];
-  constructor(private router: Router, private categoryService: CategoryService) { }
+  constructor(private router: Router, private categoryService: CategoryService, private toastr: ToastrService) { }
   role: string;
   ngOnInit() {
     this.role = localStorage.getItem('role');
@@ -20,7 +22,7 @@ export class CategoriesComponent implements OnInit {
       if (data.status == 200) {
         this.categories = data.body;
       } else {
-        alert("smt went wrong impossible")
+        this.toastr.error('Failed!', 'Error!');
       }
     }, () => console.log("Get categories completed"));
   }

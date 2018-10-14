@@ -1,15 +1,17 @@
-<nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
-    <div class="container">
-        <a class="navbar-brand">UDD</a>
-        <ul class="nav navbar-nav" routerLinkActive="active">
-            <li class="nav-item" *ngIf="!checkIfLoggedIn()"><a class="nav-link" [routerLink]="['/login']">Login</a></li>
-            <li class="nav-item" *ngIf="role == 'ADMIN'"><a class="nav-link" [routerLink]="['/users']">Users</a></li>
-            <li class="nav-item"><a class="nav-link" [routerLink]="['/books']">Books</a></li>
-            <li class="nav-item" *ngIf="role == 'ADMIN'"><a class="nav-link" [routerLink]="['/languages']">Languages</a></li>
-			<li class="nav-item" *ngIf="role != null"><a class="nav-link" [routerLink]="['/categories']">Categories</a></li>
-			<li class="nav-item" *ngIf="role != null"><a class="nav-link" [routerLink]="['/profile']" *ngIf="checkIfLoggedIn()">My profile</a></li>
-            <li class="nav-item"><a class="nav-link" [routerLink]="['/search']">Search</a></li>
-          	<li class="nav-item" *ngIf="checkIfLoggedIn()"><a class="nav-link" (click)="logout()" routerLink="/login">Logout</a></li>
+<nav class="navbar navbar-fixed-top navbar-dark bg-inverse" style="width: 245px;height: 100%; background-color: #f7f7f7">
+    <div class="container" style="width: 100%;font-size: 40px;display: table-caption; ">
+        <h2 class="navbar-brand" style="font-size: 50px; color: #ff8313; margin-left: 2px;">Menu</h2>
+        <ul class="nav navbar-nav" routerLinkActive="active" style="color: #ff8313">
+            <li class="nav-item" *ngIf="!checkIfLoggedIn()"><a class="nav-link" [routerLink]="['/login']" style="color: #000066">Login</a></li>
+            <li class="nav-item" *ngIf="role == 'ADMIN'"><a class="nav-link" [routerLink]="['/users']" style="color: #54a9ff">Users</a></li>
+            <li class="nav-item"><a class="nav-link" [routerLink]="['/books']" style="color: #54a9ff">Books</a></li>
+            <li class="nav-item" *ngIf="role == 'ADMIN'"><a class="nav-link" [routerLink]="['/languages']" style="color: #54a9ff" >Languages</a></li>
+			<li class="nav-item" *ngIf="role != null"><a class="nav-link" [routerLink]="['/categories']" style="color: #54a9ff">Categories</a></li>
+            <li class="nav-item"><a class="nav-link" [routerLink]="['/search']" style="color: #54a9ff">Search</a></li>
+          <li class="nav-item" *ngIf="role != null"><a class="nav-link" [routerLink]="['/profile']" *ngIf="checkIfLoggedIn()" style="color: #000066">My profile</a></li>
+          <li class="nav-item" *ngIf="checkIfLoggedIn()"><a class="nav-link" (click)="logout()" routerLink="/login" style="color: #000066">Logout</a></li>
         </ul>
     </div>
+  </nav>
 <router-outlet></router-outlet>
+

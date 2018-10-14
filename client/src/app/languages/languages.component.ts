@@ -2,24 +2,25 @@ import { Language } from '../models/language';
 import { LanguageService } from '../services/language.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-languages',
   templateUrl: './languages.component.html',
-  styleUrls: ['./languages.component.css'], 
+  styleUrls: ['./languages.component.css'],
   providers: [LanguageService]
 })
 export class LanguagesComponent implements OnInit {
   languages: Language[];
-  constructor(private router: Router, private languageService: LanguageService) { }
+  constructor(private router: Router, private languageService: LanguageService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.languageService.getAll().subscribe((data: any) => {
         if (data.status == 200) {
             this.languages = data.body;
-            alert("Get languages done!");
         } else {
-          alert("smt went wrong impossible")
+          this.toastr.error('Failed!', 'Error!');
         }
        }, () => console.log("Get languages completed"));
      }

@@ -9,6 +9,8 @@ import { ToastrService } from 'ngx-toastr';
 export class AppComponent {
   title = 'app';
   role: string;
+  navbarOpen = false;
+
   constructor(private toastr: ToastrService) {
   this.role = localStorage.getItem('role');
   }
@@ -22,6 +24,10 @@ export class AppComponent {
 
   checkIfLoggedIn() {
     return localStorage.getItem('user') != null;
+  }
+
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
   }
 
 }

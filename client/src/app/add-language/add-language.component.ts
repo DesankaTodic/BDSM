@@ -2,6 +2,8 @@ import { Language } from '../models/language';
 import { LanguageService } from '../services/language.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-add-language',
@@ -13,7 +15,7 @@ export class AddLanguageComponent implements OnInit {
   title = 'Add language';
   lanId: number;
   language: Language = new Language();
-  constructor(private route: ActivatedRoute,private languageService: LanguageService, private router: Router) { 
+  constructor(private route: ActivatedRoute,private languageService: LanguageService, private router: Router, private toastr: ToastrService) {
   this.route.params.subscribe(params => {
       this.lanId = +params['id'];
     });
@@ -25,9 +27,8 @@ export class AddLanguageComponent implements OnInit {
         if (data.status == 200) {
             this.language = data.body;
             this.title = 'Edit language';
-            alert("Get language done!");
         } else {
-          alert("smt went wrong impossible")
+          this.toastr.error('Language get failed!', 'Error!');
         }
        }, () => console.log("Get language completed"));
      }
@@ -38,20 +39,20 @@ export class AddLanguageComponent implements OnInit {
        this.languageService.create(this.language).subscribe((data: any) => {
         if (data.status == 201) {
             this.router.navigateByUrl('/languages');
-            alert("Create language done!");
+          this.toastr.success('Language save success!', 'Success!');
         } else {
-          alert("smt went wrong impossible")
+          this.toastr.error('Language save failed!', 'Error!');
         }
        }, () => console.log("create language completed"));
      } else {
         this.languageService.edit(this.language).subscribe((data: any) => {
         if (data.status == 200) {
             this.router.navigateByUrl('/languages');
-            alert("Edit language done!");
+          this.toastr.success('Language edit success!', 'Success!');
         } else {
-          alert("smt went wrong impossible")
+          this.toastr.error('Language edit failed!', 'Error!');
         }
        }, () => console.log("Edit language completed"));
      }
-   } 
+   }
 }

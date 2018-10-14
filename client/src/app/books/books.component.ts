@@ -5,7 +5,7 @@ import { CategoryService } from '../services/category.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { saveAs as importedSaveAs } from 'file-saver';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-books',
@@ -21,7 +21,7 @@ export class BooksComponent implements OnInit {
   role: string;
   subscriberCategory: number | null;
 
-  constructor(private router: Router, private bookService: BookService, private categoryService: CategoryService) { }
+  constructor(private router: Router, private bookService: BookService, private categoryService: CategoryService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.initBooks();
@@ -38,9 +38,8 @@ export class BooksComponent implements OnInit {
     this.bookService.getAllFromCategory(this.categoryId).subscribe((data: any) => {
       if (data.status === 200) {
         this.books = data.body;
-        //alert("Get categories done!");
       } else {
-        alert("smt went wrong impossible")
+        this.toastr.error('Failed!', 'Error!');
       }
     }, () => console.log("Get categories completed"));
   }
@@ -49,9 +48,8 @@ export class BooksComponent implements OnInit {
     this.categoryService.getAll().subscribe((data: any) => {
       if (data.status === 200) {
         this.categories = data.body;
-        //alert("Get categories done!");
       } else {
-        alert('smt went wrong impossible')
+        this.toastr.error('Failed!', 'Error!');
       }
     }, () => console.log('Get categories completed'));
   }

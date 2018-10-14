@@ -101,7 +101,7 @@ const Routes = [
       HttpModule,
       BrowserAnimationsModule,
       ToastrModule.forRoot({positionClass: 'toast-bottom-right',
-      preventDuplicates: true, timeOut: 1000})
+      preventDuplicates: true, timeOut: 2000})
   ],
   providers: [
       Admin,
