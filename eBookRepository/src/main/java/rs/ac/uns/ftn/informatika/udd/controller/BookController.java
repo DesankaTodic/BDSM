@@ -62,12 +62,10 @@ public class BookController {
 			reader = new PdfReader(file.getBytes());
 
 			if (reader.getMetadata() == null) {
-				System.out.println("null");
 				HashMap<String, String> mmap = new HashMap<String, String>();
 				mmap.put("NOXML", "NOXML");
 				return mmap;
 			} else {
-				System.out.println("not null");
 				@SuppressWarnings("unchecked")
 				HashMap<String, String> map = reader.getInfo();
 

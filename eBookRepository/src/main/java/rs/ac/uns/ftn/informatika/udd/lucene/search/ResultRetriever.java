@@ -61,6 +61,7 @@ public class ResultRetriever {
 		NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder().withQuery(query);
 
 		if (requiredHighlights.get(0).getFieldName().equals("text"))
+		//if(requiredHighlights.stream().filter(d -> d.getFieldName().equals("text")) != null)
 			nativeSearchQueryBuilder.withHighlightFields(new HighlightBuilder.Field("text"));
 
 		SearchQuery searchQuery = nativeSearchQueryBuilder.build();

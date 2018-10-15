@@ -30,8 +30,6 @@ public class SearchController {
 	private ResultRetriever resultRetriever;
 
 	@PostMapping(value = "/search/term", consumes = "application/json")
-	// public ResponseEntity<List<Book>> searchTermQuery(@RequestBody SimpleQuery
-	// simpleQuery) throws Exception {
 	public ResponseEntity<Set<Book>> searchTermQuery(@RequestBody SimpleQuery simpleQuery) throws Exception {
 
 		String latin = toLowerCaseAndLatin(simpleQuery.getValue());
@@ -122,66 +120,6 @@ public class SearchController {
 
 	@PostMapping(value = "/search/boolean", consumes = "application/json")
 	public ResponseEntity<Set<Book>> searchBoolean(@RequestBody AdvancedQuery advancedQuery) throws Exception {
-
-//		String latinField1 = toLowerCaseAndLatin(advancedQuery.getValue1());
-//		String latinField2 = toLowerCaseAndLatin(advancedQuery.getValue2());
-//
-//		org.elasticsearch.index.query.QueryBuilder query1 = QueryBuilder.buildQuery(SearchType.regular,
-//				advancedQuery.getField1(), latinField1);
-//		org.elasticsearch.index.query.QueryBuilder query2 = QueryBuilder.buildQuery(SearchType.regular,
-//				advancedQuery.getField2(), latinField2);
-//
-//		BoolQueryBuilder builder1 = QueryBuilders.boolQuery();
-//
-//		if (advancedQuery.getOperation().equalsIgnoreCase("AND")) {
-//			builder1.must(query1);
-//			builder1.must(query2);
-//		} else if (advancedQuery.getOperation().equalsIgnoreCase("OR")) {
-//			builder1.should(query1);
-//			builder1.should(query2);
-//		} else if (advancedQuery.getOperation().equalsIgnoreCase("NOT")) {
-//			builder1.must(query1);
-//			builder1.mustNot(query2);
-//		}
-//
-//		List<RequiredHighlight> rh1 = new ArrayList<RequiredHighlight>();
-//		rh1.add(new RequiredHighlight(advancedQuery.getField1(), latinField1));
-//		rh1.add(new RequiredHighlight(advancedQuery.getField2(), latinField2));
-//		List<Book> results1 = resultRetriever.getResults(builder1, rh1);
-//
-//		String cirField1 = toLowerCaseAndLatin(advancedQuery.getValue1());
-//		String cirField2 = toLowerCaseAndLatin(advancedQuery.getValue2());
-//
-//		org.elasticsearch.index.query.QueryBuilder query3 = QueryBuilder.buildQuery(SearchType.regular,
-//				advancedQuery.getField1(), cirField1);
-//		org.elasticsearch.index.query.QueryBuilder query4 = QueryBuilder.buildQuery(SearchType.regular,
-//				advancedQuery.getField2(), cirField2);
-//
-//		BoolQueryBuilder builder2 = QueryBuilders.boolQuery();
-//
-//		if (advancedQuery.getOperation().equalsIgnoreCase("AND")) {
-//			builder2.must(query3);
-//			builder2.must(query4);
-//		} else if (advancedQuery.getOperation().equalsIgnoreCase("OR")) {
-//			builder2.should(query3);
-//			builder2.should(query4);
-//		} else if (advancedQuery.getOperation().equalsIgnoreCase("NOT")) {
-//			builder2.must(query3);
-//			builder2.mustNot(query4);
-//		}
-//
-//		List<RequiredHighlight> rh2 = new ArrayList<RequiredHighlight>();
-//		rh2.add(new RequiredHighlight(advancedQuery.getField1(), cirField1));
-//		rh2.add(new RequiredHighlight(advancedQuery.getField2(), cirField2));
-//		List<Book> results2 = resultRetriever.getResults(builder2, rh2);
-//
-//		Set<Book> set = new HashSet<Book>();
-//		set.addAll(results1);
-//		set.addAll(results2);
-//
-//		return new ResponseEntity<Set<Book>>(set, HttpStatus.OK);
-
-//			milica
 			String latinField1 = toLowerCaseAndLatin(advancedQuery.getValue1()); 
 			String latinField2 = toLowerCaseAndLatin(advancedQuery.getValue2());
 			
