@@ -2,7 +2,7 @@
   <div class="col-md-6 col-md-offset-3" style="width: 30%;margin-left:20%;">
       <h3>Basic search</h3>
       <form name="form" (ngSubmit)="onSubmitSimple(f)" #f="ngForm" novalidate>
-          <table style="border-spacing: 10px;">
+          <!-- <table style="border-spacing: 10px;">
               <tbody>
                   <tr><td><label>Searching type</label></td>
                     <td><select style="width:100%;" name="simple_field_type" [(ngModel)]="simple_query_type" required>
@@ -22,8 +22,8 @@
             <button type="button" class="btn btn-primary">
                 <span class="glyphicon glyphicon-search"></span> Search
             </button>          
-        </div>
-          <!-- <div class="form-group">
+        </div> -->
+          <div class="form-group">
               <label>Searching type</label>
               <select name="simple_field_type" [(ngModel)]="simple_query_type" required>
                 <option *ngFor="let type of types" value={{type}}>{{type}}</option>
@@ -41,14 +41,14 @@
           </div>
           <div class="form-group">
               <button class="btn btn-primary">Search</button>
-          </div> -->
+          </div>
       </form>
   </div>
 
   <div class="col-md-6 col-md-offset-3" style="width: 30%;margin-left:20px;">
       <h3>Boolean search</h3>
       <form name="form" (ngSubmit)="onSubmitAdvanced(f)" #f="ngForm" novalidate>
-          <table>
+          <!-- <table>
               <tbody>
                   <tr>
                       <td>
@@ -103,8 +103,8 @@
               <button type="button" class="btn btn-primary">
           			<span class="glyphicon glyphicon-search"></span> Search
         		</button>
-          </div>
-          <!-- <div class="form-group">
+          </div> -->
+          <div class="form-group">
             <label>Searching field1</label>
             <select name="advanced_field1" [(ngModel)]="advanced_query.field1" required>
                 <option *ngFor="let field of fields" value={{field}}>{{field}}</option>
@@ -132,7 +132,7 @@
           </div>
           <div class="form-group">
               <button class="btn btn-primary">Search</button>
-          </div> -->
+          </div>
       </form>
   </div>
 </div>
